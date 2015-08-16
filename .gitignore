@@ -2,5 +2,5 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/PackageInstallerExercise.Test/obj/Debug
+/source/obj/Debug
 /tests/obj/Debug
