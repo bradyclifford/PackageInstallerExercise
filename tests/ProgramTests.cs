@@ -7,7 +7,18 @@ namespace PackageInstallerExercise.Test {
   public class ProgramTests {
 
     [TestMethod]
-    public void TestMethod1() {
+    public void TestMainOutput() {
+
+      // Arrange
+      var input = "KittenService: CamelCaser, CamelCaser:";
+      var expectedOutput = "CamelCaser, KittenService";
+
+      // Act
+      PackageInstallerExercise.Program.Main({ input });
+
+      // Assert
+      Assert.AreEqual(expectedOutput, ConsoleOutputWriterMock.GetLastLine());
+
     }
 
   }
