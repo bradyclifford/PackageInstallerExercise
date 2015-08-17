@@ -32,8 +32,17 @@ namespace PackageInstallerExercise {
     /// </summary>
     /// <param name="args">Array of Arguments</param>
     public ConsoleReturnTypes Run(string[] args) {
+
+      var result = ConsumeArguments(args);
+
+      if (result != ConsoleReturnTypes.Success) {
+        return result;
+      }
+
       WriteLine("CamelCaser, KittenService");
-      return ConsumeArguments(args);
+
+      return result;
+
     }
 
     /// <summary>
