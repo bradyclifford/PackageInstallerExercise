@@ -32,6 +32,11 @@ namespace PackageInstallerExercise {
     /// </summary>
     /// <param name="args">Array of Arguments</param>
     public int Run(string[] args) {
+
+      if (args.Length == 0) {
+        return 1;
+      }
+
       WriteLine("CamelCaser, KittenService");
       return 0;
     }
