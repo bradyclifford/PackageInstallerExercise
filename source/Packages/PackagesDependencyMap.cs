@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace PackageInstallerExercise.Packages {
 
@@ -33,6 +34,9 @@ namespace PackageInstallerExercise.Packages {
     public IPackage Add(string packageName, string dependencyName = null) {
 
       IPackage dependency = default(P);
+
+      packageName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(packageName);
+      // See if package already exists in the list
       var package = this.Packages.Find(p => p.Name == packageName);
 
       // If package doesn't already exist, create a new instance
@@ -45,6 +49,7 @@ namespace PackageInstallerExercise.Packages {
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrEmpty(dependencyName)) {
 
+        dependencyName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dependencyName);
         // See if dependency already exists in the list
         dependency = this.Packages.Find(p => p.Name == dependencyName);
 
@@ -90,10 +95,8 @@ namespace PackageInstallerExercise.Packages {
         return false;
       }
 
-      // TODO: move this out into Add method? 
-      // TODO: compare package objects instead?
       // When package and its dependency have the same name, its a cycle
-      if (package.Name == package.Dependency.Name) {
+      if (package.Equals(package.Dependency)) {
         return true;
       }
 
