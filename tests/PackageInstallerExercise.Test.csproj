@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PackageDependencyMapGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\source\PackageInstallerExercise.csproj">

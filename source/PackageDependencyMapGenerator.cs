@@ -4,11 +4,11 @@ using System;
 namespace PackageInstallerExercise.Packages {
 
   /// <summary>
-  /// Package Dependecy Map Generator
+  /// Package Dependency Map Generator
   /// </summary>
   public class PackageDependencyMapGenerator : IDependencyMapGenerator {
 
-    char _delimiter;
+    private char _delimiter;
 
     /// <summary>
     /// Constructor
