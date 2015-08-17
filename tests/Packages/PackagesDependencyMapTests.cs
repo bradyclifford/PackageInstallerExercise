@@ -102,6 +102,14 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Should throw PackageContainsCycleException Error when a package and its dependency are the same.")]
+    [ExpectedException(typeof(PackageContainsCycleException))]
+    public void TestAddPackageThrowContainsCycleExceptionWhenSamePackageAdded() {
+      // Arrange, Act & Assert
+      dependencyMap.Add("A", "A");
+    }
+
     #endregion
 
     public class PackageMock : IPackage {

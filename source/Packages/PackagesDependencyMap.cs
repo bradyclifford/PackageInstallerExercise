@@ -77,21 +77,33 @@ namespace PackageInstallerExercise.Packages {
       throw new NotImplementedException();
     }
 
-    private bool isCycle(IPackage package, string originalPackangeName) {
+    /// <summary>
+    /// Determines if the package has a a cycle through recursion
+    /// </summary>
+    /// <param name="package">Package to check</param>
+    /// <param name="originalPackageName">Original Package Name</param>
+    /// <returns></returns>
+    private bool isCycle(IPackage package, string originalPackageName) {
 
+      // When dependency is null, can't be a cycle
       if (package.Dependency == null) {
         return false;
       }
 
+      // TODO: move this out into Add method? 
+      // TODO: compare package objects instead?
+      // When package and its dependency have the same name, its a cycle
       if (package.Name == package.Dependency.Name) {
         return true;
       }
 
-      if (package.Dependency.Name == originalPackangeName) {
+      // When dependency Name is the same as the orginal package name, its a cycle
+      if (package.Dependency.Name == originalPackageName) {
         return true;
       }
 
-      return isCycle(package.Dependency, originalPackangeName);
+      // Recurse through the dependency tree
+      return isCycle(package.Dependency, originalPackageName);
 
     }
 
