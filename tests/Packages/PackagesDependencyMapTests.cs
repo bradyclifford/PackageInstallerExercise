@@ -88,6 +88,20 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Should throw PackageContainsCycleException Error.")]
+    [ExpectedException(typeof(PackageContainsCycleException))]
+    public void TestAddPackageThrowContainsCycleException() {
+
+      // Arrange
+      dependencyMap.Add("A", "C");
+      dependencyMap.Add("B", "A");
+
+      // Act & Assert
+      dependencyMap.Add("C", "B");
+
+    }
+
     #endregion
 
     public class PackageMock : IPackage {
