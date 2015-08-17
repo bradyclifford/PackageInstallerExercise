@@ -24,21 +24,32 @@ namespace PackageInstallerExercise {
 
     public static int Main(string[] args) {
       var program = new Program(new ConsoleOutputWriter());
-      return program.Run(args);
+      return (int)program.Run(args);
     }
 
     /// <summary>
     /// Execute the program
     /// </summary>
     /// <param name="args">Array of Arguments</param>
-    public int Run(string[] args) {
+    public ConsoleReturnTypes Run(string[] args) {
+      WriteLine("CamelCaser, KittenService");
+      return ConsumeArguments(args);
+    }
 
+    /// <summary>
+    /// Parses the arguments
+    /// </summary>
+    /// <param name="args">Argument Array</param>
+    /// <returns>0 as a success, anything greater as an error</returns>
+    private ConsoleReturnTypes ConsumeArguments(string[] args) {
+
+      // Must have only one argument
       if (args.Length == 0) {
-        return 1;
+        return ConsoleReturnTypes.NoArguments;
       }
 
-      WriteLine("CamelCaser, KittenService");
-      return 0;
+      return ConsoleReturnTypes.Success;
+
     }
 
     /// <summary>

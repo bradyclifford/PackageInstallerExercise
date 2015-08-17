@@ -39,7 +39,7 @@ namespace PackageInstallerExercise.Test {
       var result = program.Run(input);
 
       // Assert
-      Assert.AreEqual(1, result);
+      Assert.AreEqual(ConsoleReturnTypes.NoArguments, result);
 
     }
 

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutputWriter.cs" />
+    <Compile Include="ConsoleReturnTypes.cs" />
     <Compile Include="IOutputWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
