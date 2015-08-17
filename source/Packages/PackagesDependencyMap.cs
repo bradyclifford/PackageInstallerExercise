@@ -33,6 +33,14 @@ namespace PackageInstallerExercise.Packages {
     public IPackage Add(string packageName, string dependencyName = null) {
 
       IPackage dependency = default(P);
+      var package = this.Packages.Find(p => p.Name == packageName);
+
+      // If package doesn't already exist, create a new instance
+      if (package == null) {
+        package = new P() {
+          Name = packageName
+        };
+      }
 
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrEmpty(dependencyName)) {
@@ -46,24 +54,45 @@ namespace PackageInstallerExercise.Packages {
             Name = dependencyName
           };
 
-          // Add dependency to the Package list
+          // TODO: will need to remove this so the printed order is correct
           this.Packages.Add(dependency);
         }
 
       }
 
-      // Add new package to the list of packages
-      this.Packages.Add(new P() {
-        Name = packageName,
-        Dependency = dependency
-      });
+      package.Dependency = dependency;
 
+      if (isCycle(package, package.Name)) {
+        // TODO: pass in the package so it can be displayed
+        throw new PackageContainsCycleException();
+      }
+
+      // Add new package to the list of packages
+      this.Packages.Add(package);
       return this.Packages.Last();
 
     }
 
     public string[] GetArray() {
       throw new NotImplementedException();
+    }
+
+    private bool isCycle(IPackage package, string originalPackangeName) {
+
+      if (package.Dependency == null) {
+        return false;
+      }
+
+      if (package.Name == package.Dependency.Name) {
+        return true;
+      }
+
+      if (package.Name == originalPackangeName) {
+        return true;
+      }
+
+      return isCycle(package.Dependency, originalPackangeName);
+
     }
 
   }
