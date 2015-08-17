@@ -50,9 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Packages\PackageTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Packages\PackageDependencyMapGeneratorTests.cs" />
+    <Compile Include="Packages\PackagesDependencyMapGeneratorTests.cs" />
     <Compile Include="Packages\PackagesDependencyMapTests.cs" />
   </ItemGroup>
   <ItemGroup>

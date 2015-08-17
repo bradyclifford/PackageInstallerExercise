@@ -55,7 +55,7 @@
     <Compile Include="Types\ConsoleReturnTypes.cs" />
     <Compile Include="Interfaces\IDependencyMapGenerator.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
-    <Compile Include="Packages\PackageDependencyMapGenerator.cs" />
+    <Compile Include="Packages\PackagesDependencyMapGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -7,7 +7,7 @@ using PackageInstallerExercise.Packages.Interfaces;
 namespace PackageInstallerExercise.Test {
 
   [TestClass]
-  public class PackageDependencyMapGeneratorTests {
+  public class PackagesDependencyMapGeneratorTests {
 
     private PackagesDependencyMapGenerator generator;
     private PackagesDependencyMapMock dependencyMap;
