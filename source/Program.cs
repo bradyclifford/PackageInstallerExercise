@@ -120,6 +120,11 @@ namespace PackageInstallerExercise {
 
       ParsePackagesList(packagesList);
 
+      // Can't just have a : and no package
+      if (this._definitions.Length == 1 && this._definitions[0] == ":") {
+        return ConsoleReturnTypes.ArgumentsIncorrectFormat;
+      }
+
       return ConsoleReturnTypes.Success;
 
     }
