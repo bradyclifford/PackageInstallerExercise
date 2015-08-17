@@ -21,12 +21,14 @@ namespace PackageInstallerExercise.Packages {
       _packageDependencyMap = packageDependencyMap;
     }
 
+    /// <summary>
+    /// Create Dependency Map
+    /// </summary>
+    /// <param name="definitions"></param>
+    /// <returns>Array of dependencies in their build order</returns>
     public string[] CreateMap(string[] definitions) {
-      
       FillMap(definitions);
-
-      return new string[] { "CamelCaser", "KittenService" };
-
+      return this._packageDependencyMap.GetArray();
     }
 
     private void FillMap(string[] definitions) {

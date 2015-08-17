@@ -67,6 +67,10 @@ namespace PackageInstallerExercise.Test {
       this.Packages.Add(packageName, dependencyName);
     }
 
+    public string[] GetArray() {
+      return new string[] { "CamelCaser", "KittenService" };
+    }
+
   }
 
 }
