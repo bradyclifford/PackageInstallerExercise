@@ -30,6 +30,25 @@ namespace PackageInstallerExercise.Test.Packages {
 
     }
 
+    [TestMethod]
+    [Description("Should return a PackageName string.")]
+    public void TestToStringWithoutDependency() {
+
+      // Arrange
+      string packageName = "A";
+
+      var package = new Package() {
+        Name = packageName
+      };
+
+      // Assert
+      var actual = package.ToString();
+
+      // Assert
+      Assert.AreEqual(actual, packageName);
+
+    }
+
   }
 
 }

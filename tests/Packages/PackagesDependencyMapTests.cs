@@ -215,6 +215,7 @@ namespace PackageInstallerExercise.Test {
 
       }
 
+      // Help out in testing
       public override string ToString() {
 
         string value = this.Name;
