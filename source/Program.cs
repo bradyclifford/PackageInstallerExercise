@@ -43,17 +43,27 @@ namespace PackageInstallerExercise {
     /// <param name="args">Array of Arguments</param>
     public ConsoleReturnTypes Run(string[] args) {
 
-      // Get the argument from the command line
-      var result = ConsumeArguments(args);
+      ConsoleReturnTypes result;
 
-      // When we have a failure, stop and inform user
-      if (result != ConsoleReturnTypes.Success) {
-        ProcessError(result);
-        return result;
+      try {
+
+        // Get the argument from the command line
+        result = ConsumeArguments(args);
+
+        // When we have a failure, stop and inform user
+        if (result != ConsoleReturnTypes.Success) {
+          ProcessError(result);
+          return result;
+        }
+
+        var dependencyMap = _generator.CreateMap(this._definitions);
+        WriteLine(string.Join(", ", dependencyMap));
+
       }
-
-      var dependencyMap = _generator.CreateMap(this._definitions);
-      WriteLine(string.Join(", ", dependencyMap));
+      catch (Exception e) {
+        result = ConsoleReturnTypes.UnknownFailure;
+        ProcessError(result, e.ToString());
+      }
 
       return result;
 
