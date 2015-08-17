@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using PackageInstallerExercise.Packages.Exceptions;
+using System.Text;
 
 namespace PackageInstallerExercise.Packages {
 
@@ -85,8 +86,29 @@ namespace PackageInstallerExercise.Packages {
 
     public string[] GetMap() {
 
-      // If already included, don't add to area.
-      throw new NotImplementedException();
+      var map = new List<string>();
+
+      foreach (var package in this.Packages) {
+        RecurseThroughDependencies(package, map);
+      }
+
+      return map.ToArray();
+
+    }
+
+    private void RecurseThroughDependencies(IPackage package, IList map) {
+
+      if (package.Dependency != null) {
+        RecurseThroughDependencies(package.Dependency, map);
+      }
+
+      // Don't add if package is already in map list
+      if (map.Contains(package.Name)) {
+        return;
+      }
+
+      map.Add(package.Name);
+
     }
 
     /// <summary>

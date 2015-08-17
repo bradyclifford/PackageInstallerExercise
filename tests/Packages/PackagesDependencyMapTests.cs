@@ -129,15 +129,7 @@ namespace PackageInstallerExercise.Test {
     public void TestGetMap() {
 
       // Arrange
-
-      var expected = new string[] {
-        "A",
-        "F",
-        "C",
-        "B",
-        "D",
-        "E"
-      };
+      var expected = new string[] { "A", "F", "C", "B", "D", "E" };
       
       dependencyMap.Add("A");
       dependencyMap.Add("B", "C");
