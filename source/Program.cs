@@ -109,21 +109,37 @@ namespace PackageInstallerExercise {
         return ConsoleReturnTypes.TooManyArguments;
       }
 
+      // Get the combined packages
       var packagesList = args[0];
 
-      if (string.IsNullOrEmpty(packagesList) || !packagesList.Contains(":")) {
+      // Verify the argument isn't empty and contains our delimiter.
+      if (string.IsNullOrEmpty(packagesList) || 
+        !packagesList.Contains(":")) {
         return ConsoleReturnTypes.ArgumentsIncorrectFormat;
       }
 
+      ParsePackagesList(packagesList);
+
+      return ConsoleReturnTypes.Success;
+
+    }
+
+    /// <summary>
+    /// Parse Packages List
+    /// </summary>
+    /// <param name="packagesList">Packages List</param>
+    private void ParsePackagesList(string packagesList) {
+
+      // Split each package:dependency
       var splitDefinitions = packagesList.Split(',');
 
+      // Remove any trailing or leading white spaces
       for (int i = 0; i < splitDefinitions.Length; i++ ) {
         splitDefinitions[i] = splitDefinitions[i].Trim();
       }
 
+      // Set the definitions for this program instance
       this._definitions = splitDefinitions;
-
-      return ConsoleReturnTypes.Success;
 
     }
 

@@ -164,6 +164,9 @@ namespace PackageInstallerExercise.Test {
 
   }
 
+  /// <summary>
+  /// Stub PackageDependencyMapGenerator for mocking the map creation
+  /// </summary>
   public class PackageDependencyMapGeneratorMock : IDependencyMapGenerator {
 
     public string[] Definitions { get; set; }

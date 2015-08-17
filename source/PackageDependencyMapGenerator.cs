@@ -1,10 +1,21 @@
 ﻿using System;
 using System.Collections;
+
 namespace PackageInstallerExercise {
+
+  /// <summary>
+  /// Package Dependecy Map Generator
+  /// </summary>
   public class PackageDependencyMapGenerator : IDependencyMapGenerator {
 
-    public PackageDependencyMapGenerator(char delimiter) {
+    char _delimiter;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="delimiter">Delimiter separating the Package from the dependency</param>
+    public PackageDependencyMapGenerator(char delimiter) {
+      _delimiter = delimiter;
     }
 
     public string[] CreateMap(string[] definitions) {
