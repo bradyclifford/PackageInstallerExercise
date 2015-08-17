@@ -8,6 +8,7 @@ This exercise is to write the code that will determine the order of install.
 
 */
 
+using System;
 namespace PackageInstallerExercise {
 
   /// <summary>
@@ -17,14 +18,23 @@ namespace PackageInstallerExercise {
 
     // Interface used to output results
     private IOutputWriter _writer;
+    private IDependencyMapGenerator _generator;
+    private string[] _definitions;
 
-    public Program(IOutputWriter writer) {
+    public Program(IOutputWriter writer, IDependencyMapGenerator generator) {
       _writer = writer;
+      _generator = generator;
     }
 
     public static int Main(string[] args) {
-      var program = new Program(new ConsoleOutputWriter());
+
+      var program = new Program(
+        new ConsoleOutputWriter(), 
+        new PackageDependencyMapGenerator(':')
+      );
+
       return (int)program.Run(args);
+
     }
 
     /// <summary>
@@ -33,15 +43,52 @@ namespace PackageInstallerExercise {
     /// <param name="args">Array of Arguments</param>
     public ConsoleReturnTypes Run(string[] args) {
 
+      // Get the argument from the command line
       var result = ConsumeArguments(args);
 
+      // When we have a failure, stop and inform user
       if (result != ConsoleReturnTypes.Success) {
+        ProcessError(result);
         return result;
       }
 
-      WriteLine("CamelCaser, KittenService");
+      var dependencyMap = _generator.CreateMap(this._definitions);
+      WriteLine(string.Join(", ", dependencyMap));
 
       return result;
+
+    }
+
+    /// <summary>
+    /// Displays the failure to the user
+    /// </summary>
+    /// <param name="failureType"></param>
+    /// <param name="details">Additional details</param>
+    private void ProcessError(ConsoleReturnTypes failureType, string details = null) {
+
+      switch (failureType) {
+        case ConsoleReturnTypes.NoArguments:
+        case ConsoleReturnTypes.ArgumentsIncorrectFormat:
+          WriteLine("Enter a list of dependencies.");
+          WriteLine("Usage: \"<package>: <dependency>, ...\"");
+          WriteLine("Usage Example: packageinstallerexcercise \"KittenService: CamelCaser, CamelCaser:\"");
+          break;
+
+        case ConsoleReturnTypes.TooManyArguments:
+          WriteLine("Only provide one argument.");
+          break;
+
+        default:
+          string line = string.Format(
+            "An error occurred: {0}. Details: [{1}].", 
+            Enum.GetName(typeof(ConsoleReturnTypes), failureType), 
+            details
+          );
+
+          WriteLine(line);
+          break;
+
+      }
 
     }
 

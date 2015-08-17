@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,12 +9,14 @@ namespace PackageInstallerExercise.Test {
   public class ProgramTests {
 
     private ConsoleOutputWriterMock writer;
+    private PackageDependencyMapGeneratorMock generator;
     private Program program;
 
     [TestInitialize()]
     public void Initialize() {
       writer = new ConsoleOutputWriterMock();
-      program = new Program(writer);
+      generator = new PackageDependencyMapGeneratorMock();
+      program = new Program(writer, generator);
     }
 
     [TestMethod]
@@ -118,7 +121,23 @@ namespace PackageInstallerExercise.Test {
       var result = program.Run(input);
 
       // Assert
-      Assert.IsFalse(writer.HasBeenCalled());
+      Assert.IsTrue(writer.HasBeenCalled());
+
+    }
+
+    [TestMethod]
+    [Description("Parse the dependency list string into an array of packages.")]
+    public void TestRunParseDependencyList() {
+
+      // Arrange
+      string[] input = { "KittenService: CamelCaser, CamelCaser:" };
+      string[] expected = { "KittenService: CamelCaser", "CamelCaser:" };
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(expected, generator.Definitions);
 
     }
 
@@ -143,6 +162,17 @@ namespace PackageInstallerExercise.Test {
       return _writtenLines.Count > 0;
     }
 
+  }
+
+  public class PackageDependencyMapGeneratorMock : IDependencyMapGenerator {
+
+    public string[] Definitions { get; set; }
+
+    public string[] CreateMap(string[] definitions) {
+      this.Definitions = definitions;
+      return new string[]{ "CamelCaser", "KittenService" };
+    }
+    
   }
 
 }
