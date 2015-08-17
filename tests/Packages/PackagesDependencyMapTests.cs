@@ -196,6 +196,7 @@ namespace PackageInstallerExercise.Test {
       public string Name { get; set; }
       public IPackage Dependency { get; set; }
 
+      // Help out in Asserting, but also used in the actual package class.
       public override bool Equals(object obj) {
 
         // If parameter is null return false.
@@ -203,7 +204,7 @@ namespace PackageInstallerExercise.Test {
           return false;
         }
 
-        // If parameter cannot be cast to Point return false.
+        // If parameter cannot be cast to PackageMock return false.
         PackageMock p = obj as PackageMock;
         if ((System.Object)p == null) {
           return false;
