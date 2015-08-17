@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -156,6 +157,23 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Catches & handles an unknown error and display a safe message to the user.")]
+    public void TestRunHandleUnknownError() {
+
+      // Arrange
+      string[] input = { "KittenService: CamelCaser, CamelCaser:" };
+      generator.ThrowError = true;
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(ConsoleReturnTypes.UnknownFailure, result);
+      Assert.IsTrue(writer.HasBeenCalled());
+
+    }
+
   }
 
   /// <summary>
@@ -184,11 +202,19 @@ namespace PackageInstallerExercise.Test {
   /// </summary>
   public class PackageDependencyMapGeneratorMock : IDependencyMapGenerator {
 
+    public bool ThrowError { get; set; }
     public string[] Definitions { get; set; }
 
     public string[] CreateMap(string[] definitions) {
-      this.Definitions = definitions;
-      return new string[]{ "CamelCaser", "KittenService" };
+
+      if (this.ThrowError) {
+        throw new Exception("Exception");
+      }
+      else {
+        this.Definitions = definitions;
+        return new string[] { "CamelCaser", "KittenService" };
+      }
+
     }
     
   }

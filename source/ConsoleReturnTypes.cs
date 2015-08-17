@@ -6,6 +6,7 @@
     Success = 0,
     NoArguments = 1,
     TooManyArguments = 2,
-    ArgumentsIncorrectFormat = 3
+    ArgumentsIncorrectFormat = 3,
+    UnknownFailure = 4
   }
 }
