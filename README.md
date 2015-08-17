@@ -18,11 +18,17 @@ You suddenly have a curious aspiration to create a package installer that can ha
 
 6. The program should reject as invalid a dependency specification that contains cycles.
 
+##Usage
+The console application accepts one command line argument.  This argument will contain all the packages and their dependencies.  Each package and its dependency is seperated by a comma wrapped by double quotes.
+
+```
+C:\PackageInstallerExercise "KittenService: CamelCaser, CamelCaser:"
+```
+
 ##Example Inputs
 
 ```
-	KittenService: CamelCaser
-	CamelCaser:
+KittenService: CamelCaser, CamelCaser:
 ```
 
 *represents two packages, “KittenService” and “CamelCaser”, where “KittenService” depends on “CamelCaser”.*
@@ -36,29 +42,16 @@ In this case the output should be
 ###Valid input
 
 `
-    KittenService:
-    Leetmeme: Cyberportal
-    Cyberportal: Ice
-    CamelCaser: KittenService
-Fraudstream: Leetmeme
-Ice:
+"KittenService:, Leetmeme: Cyberportal, Cyberportal: Ice, CamelCaser: KittenService, Fraudstream: Leetmeme, Ice:"
 `
 A valid output for the above would be:
 
-```
+`
 KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream
-```
+`
 
 ###Input that should be rejected (contains cycles)
 
-KittenService:
-
-Leetmeme: Cyberportal
-
-Cyberportal: Ice
-
-CamelCaser: KittenService
-
-Fraudstream:
-
-Ice: Leetmeme
+`
+"KittenService:, Leetmeme: Cyberportal, Cyberportal: Ice, CamelCaser: KittenService, Fraudstream:, Ice: Leetmeme"
+`
