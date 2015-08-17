@@ -22,7 +22,7 @@ namespace PackageInstallerExercise.Test.Packages {
         }
       };
 
-      // Assert
+      // Act
       var actual = package.ToString();
 
       // Assert
@@ -41,11 +41,38 @@ namespace PackageInstallerExercise.Test.Packages {
         Name = packageName
       };
 
-      // Assert
+      // Act
       var actual = package.ToString();
 
       // Assert
       Assert.AreEqual(actual, packageName);
+
+    }
+
+    [TestMethod]
+    [Description("Should be equal when both packages have same name and dependency.")]
+    public void TestEqualSameNameAndDependency() {
+
+      // Arrange
+      string packageName = "A",
+          dependencyName = "B";
+
+      var package1 = new Package() {
+        Name = packageName,
+        Dependency = new Package() {
+          Name = dependencyName
+        }
+      };
+
+      var package2 = new Package() {
+        Name = packageName,
+        Dependency = new Package() {
+          Name = dependencyName
+        }
+      };
+
+      // Act & Assert
+      Assert.AreEqual(package1, package2);
 
     }
 
