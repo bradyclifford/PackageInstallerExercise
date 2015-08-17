@@ -8,6 +8,7 @@ namespace PackageInstallerExercise.Test {
   public class ProgramTests {
 
     [TestMethod]
+    [Description("Should write successful output to screen.")]
     public void TestMainOutput() {
 
       // Arrange
@@ -22,6 +23,23 @@ namespace PackageInstallerExercise.Test {
 
       // Assert
       Assert.AreEqual(expectedOutput, writer.GetLastLine());
+
+    }
+
+    [TestMethod]
+    [Description("Should fail when no argument passed.")]
+    public void TestMainOutputNoArguments() {
+
+      // Arrange
+      string[] input = { };
+      var writer = new ConsoleOutputWriterMock();
+      var program = new Program(writer);
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(1, result);
 
     }
 

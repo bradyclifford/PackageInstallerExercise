@@ -22,19 +22,18 @@ namespace PackageInstallerExercise {
       _writer = writer;
     }
 
-    public static void Main(string[] args) {
-
+    public static int Main(string[] args) {
       var program = new Program(new ConsoleOutputWriter());
-      program.Run(args);
-
+      return program.Run(args);
     }
 
     /// <summary>
     /// Execute the program
     /// </summary>
     /// <param name="args">Array of Arguments</param>
-    public void Run(string[] args) {
+    public int Run(string[] args) {
       WriteLine("CamelCaser, KittenService");
+      return 0;
     }
 
     /// <summary>
