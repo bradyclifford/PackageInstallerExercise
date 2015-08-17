@@ -53,6 +53,12 @@ namespace PackageInstallerExercise {
         return ConsoleReturnTypes.TooManyArguments;
       }
 
+      var packagesList = args[0];
+
+      if (string.IsNullOrEmpty(packagesList) || !packagesList.Contains(":")) {
+        return ConsoleReturnTypes.ArgumentsIncorrectFormat;
+      }
+
       return ConsoleReturnTypes.Success;
 
     }

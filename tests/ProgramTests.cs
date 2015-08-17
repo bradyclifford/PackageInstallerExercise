@@ -28,7 +28,7 @@ namespace PackageInstallerExercise.Test {
 
     [TestMethod]
     [Description("Should fail when no argument passed.")]
-    public void TestMainOutputNoArguments() {
+    public void TestMainNoArguments() {
 
       // Arrange
       string[] input = { };
@@ -45,7 +45,7 @@ namespace PackageInstallerExercise.Test {
 
     [TestMethod]
     [Description("Should fail when more than one argument passed.")]
-    public void TestMainOutputMoreThanOneArgument() {
+    public void TestMainArgumentsMoreThanOne() {
 
       // Arrange
       string[] input = { "argument1", "argument2" };
@@ -57,6 +57,57 @@ namespace PackageInstallerExercise.Test {
 
       // Assert
       Assert.AreEqual(ConsoleReturnTypes.TooManyArguments, result);
+
+    }
+
+    [TestMethod]
+    [Description("Should fail with no colon in argument")]
+    public void TestMainArgumentNotContainColon() {
+
+      // Arrange
+      string[] input = { "argument1 with no colon" };
+      var writer = new ConsoleOutputWriterMock();
+      var program = new Program(writer);
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(ConsoleReturnTypes.ArgumentsIncorrectFormat, result);
+
+    }
+
+    [TestMethod]
+    [Description("Should contain a colon.")]
+    public void TestMainArgumentContainsColon() {
+
+      // Arrange
+      string[] input = { "KittenService:" };
+      var writer = new ConsoleOutputWriterMock();
+      var program = new Program(writer);
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(ConsoleReturnTypes.Success, result);
+
+    }
+
+    [TestMethod]
+    [Description("Argument cannot be empty.")]
+    public void TestMainArgumentEmptyString() {
+
+      // Arrange
+      string[] input = { "" }; // Empty String
+      var writer = new ConsoleOutputWriterMock();
+      var program = new Program(writer);
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(ConsoleReturnTypes.ArgumentsIncorrectFormat, result);
 
     }
 
