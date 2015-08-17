@@ -35,7 +35,6 @@ namespace PackageInstallerExercise.Packages {
 
       IPackage dependency = default(P);
 
-      packageName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(packageName);
       // See if package already exists in the list
       var package = this.Packages.Find(p => p.Name == packageName);
 
@@ -49,7 +48,6 @@ namespace PackageInstallerExercise.Packages {
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrEmpty(dependencyName)) {
 
-        dependencyName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dependencyName);
         // See if dependency already exists in the list
         dependency = this.Packages.Find(p => p.Name == dependencyName);
 
