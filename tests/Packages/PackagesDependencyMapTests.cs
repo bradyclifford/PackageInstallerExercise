@@ -124,6 +124,36 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Should return a dependency map.")]
+    public void TestGetMap() {
+
+      // Arrange
+
+      var expected = new string[] {
+        "A",
+        "F",
+        "C",
+        "B",
+        "D",
+        "E"
+      };
+      
+      dependencyMap.Add("A");
+      dependencyMap.Add("B", "C");
+      dependencyMap.Add("C", "F");
+      dependencyMap.Add("D", "A");
+      dependencyMap.Add("E", "B");
+      dependencyMap.Add("F");
+
+      // Act
+      var actual = dependencyMap.GetMap();
+
+      // Assert
+      Assert.AreEqual(expected, actual);
+
+    }
+
     #endregion
 
     public class PackageMock : IPackage {
