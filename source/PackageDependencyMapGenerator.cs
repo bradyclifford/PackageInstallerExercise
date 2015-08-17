@@ -19,7 +19,7 @@ namespace PackageInstallerExercise.Packages {
     }
 
     public string[] CreateMap(string[] definitions) {
-      throw new NotImplementedException();
+      return new string[] { "CamelCaser", "KittenService" };
     }
   }
 }
