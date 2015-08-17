@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PackageInstallerExercise.Packages;
+using System.Collections.Generic;
+using PackageInstallerExercise;
+using PackageInstallerExercise.Packages.Interfaces;
 
 namespace PackageInstallerExercise.Test {
 
@@ -8,10 +11,12 @@ namespace PackageInstallerExercise.Test {
   public class PackageDependencyMapGeneratorTests {
 
     private PackagesDependencyMapGenerator generator;
+    private PackagesDependencyMapMock dependencyMap;
 
     [TestInitialize()]
     public void Initialize() {
-      generator = new PackagesDependencyMapGenerator(':');
+      dependencyMap = new PackagesDependencyMapMock();
+      generator = new PackagesDependencyMapGenerator(':', dependencyMap);
     }
 
     [TestMethod]
@@ -27,6 +32,35 @@ namespace PackageInstallerExercise.Test {
       // Assert
       CollectionAssert.AreEqual(expected, dependencyMapList);
 
+    }
+
+    [TestMethod]
+    public void TestCreateMapFillPackagesDependencyMap() {
+
+      // Arrange
+      string[] definitions = { "KittenService: CamelCaser, CamelCaser:" };
+
+      var expectedPackagesAdded = new Dictionary<string, string>() {
+        { "KittenService", "CamelCaser" },
+        { "CamelCaser", "" }
+      };
+
+      // Act
+      var dependencyMapList = generator.CreateMap(definitions);
+
+      // Assert
+      CollectionAssert.AreEqual(expectedPackagesAdded, dependencyMap.Packages);
+
+    }
+
+  }
+
+  public class PackagesDependencyMapMock : IPackageDependencyMap {
+
+    public Dictionary<string, string> Packages { get; private set; }
+
+    public void Add(string packageName, string packageDependency) {
+      this.Packages.Add(packageName, packageDependency);
     }
 
   }
