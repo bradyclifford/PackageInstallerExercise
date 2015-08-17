@@ -8,7 +8,7 @@ namespace PackageInstallerExercise.Packages {
   public class Package: IPackage {
 
     public string Name { get; set; }
-    public string Dependency { get; set; }
+    public IPackage Dependency { get; set; }
 
   }
 

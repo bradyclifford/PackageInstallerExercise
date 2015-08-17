@@ -6,7 +6,7 @@
   public interface IPackage {
 
     string Name { get; set; }
-    string Dependency { get; set; }
+    IPackage Dependency { get; set; }
 
   }
 

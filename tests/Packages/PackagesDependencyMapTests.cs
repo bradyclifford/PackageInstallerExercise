@@ -33,6 +33,31 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Should add a package and link its dependency to an existing pacakge.")]
+    public void TestAddPackageToDependencyMapAndLink() {
+
+      // Arrange
+      string packageName = "KittenService",
+             dependencyName = "CamelCaser";
+
+      var packageDependency = new PackageMock(dependencyName);
+      var expectedPackage = new PackageMock() {
+        Name = packageName,
+        Dependency = packageDependency
+      };
+
+      // Add package dependency first
+      dependencyMap.Add(dependencyName);
+
+      // Act
+      dependencyMap.Add(packageName, dependencyName);
+
+      // Assert
+      Assert.AreEqual(expectedPackage, dependencyMap.Packages[0]);
+
+    }
+
     public class PackageMock : IPackage {
 
       public PackageMock() { }
@@ -43,7 +68,7 @@ namespace PackageInstallerExercise.Test {
       }
 
       public string Name { get; set; }
-      public string Dependency { get; set; }
+      public IPackage Dependency { get; set; }
 
       public override bool Equals(object obj) {
 

@@ -29,7 +29,7 @@ namespace PackageInstallerExercise.Packages {
     /// <param name="packageName">Package Name</param>
     /// <param name="dependencyName">Dependency Name</param>
     /// <remarks>When dependency already exists in map, will link instead of create</remarks>
-    public void Add(string packageName, string dependencyName) {
+    public void Add(string packageName, string dependencyName = null) {
       this.Packages.Add(new P() {
         Name = packageName,
         Dependency =  dependencyName
