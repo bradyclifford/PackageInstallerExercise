@@ -6,19 +6,14 @@ namespace PackageInstallerExercise.Packages.Exceptions {
   /// <summary>
   /// Package Is a Duplicate Exception
   /// </summary>
-  public class PackageDuplicateException : Exception {
+  public class PackageDuplicateException : PackageExceptionBase {
 
-    public IPackage Package { get; private set; }
+    public PackageDuplicateException(IPackage package) 
+      : base(package) { }
 
-    public PackageDuplicateException(IPackage package) {
-      this.Package = package;
-    }
-
-    public override string Message {
+    public override string Name {
       get {
-        return string.Format(
-          "Package Is a Duplicate [{0}]", this.Package.ToString()
-          );
+        return "Package already added";
       }
     }
 

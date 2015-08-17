@@ -6,19 +6,14 @@ namespace PackageInstallerExercise.Packages.Exceptions {
   /// <summary>
   /// Package Contains Cycle Exception
   /// </summary>
-  public class PackageContainsCycleException : Exception {
+  public class PackageContainsCycleException : PackageExceptionBase {
 
-    public IPackage Package { get; private set; }
+    public PackageContainsCycleException(IPackage package) 
+      : base(package) { }
 
-    public PackageContainsCycleException(IPackage package) {
-      this.Package = package;
-    }
-
-    public override string Message {
+    public override string Name {
       get {
-        return string.Format(
-          "Package Contains Cycle Exception [{0}]", this.Package.ToString()
-          );
+        return "Package Contains Cycle Exception";
       }
     }
 

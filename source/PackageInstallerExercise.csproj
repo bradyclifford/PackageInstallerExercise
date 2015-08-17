@@ -47,6 +47,7 @@
     <Compile Include="ConsoleOutputWriter.cs" />
     <Compile Include="Interfaces\IDependencyMap.cs" />
     <Compile Include="Packages\Exceptions\PackageContainsCycleException.cs" />
+    <Compile Include="Packages\Exceptions\PackageExceptionBase.cs" />
     <Compile Include="Packages\Interfaces\IPackage.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Packages\Exceptions\PackageDuplicateException.cs" />
