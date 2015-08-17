@@ -107,6 +107,21 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Inform User that something went wrong.")]
+    public void TestRunInformUserOfFailure() {
+
+      // Arrange
+      string[] input = { "" }; // Empty String
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.IsFalse(writer.HasBeenCalled());
+
+    }
+
   }
 
   /// <summary>
@@ -122,6 +137,10 @@ namespace PackageInstallerExercise.Test {
 
     public string GetLastLine() {
       return _writtenLines.Last();
+    }
+
+    public bool HasBeenCalled() {
+      return _writtenLines.Count > 0;
     }
 
   }
