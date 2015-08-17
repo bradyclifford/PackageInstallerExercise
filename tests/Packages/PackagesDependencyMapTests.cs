@@ -2,6 +2,7 @@
 using PackageInstallerExercise;
 using PackageInstallerExercise.Packages;
 using PackageInstallerExercise.Packages.Interfaces;
+using PackageInstallerExercise.Test.Packages;
 
 namespace PackageInstallerExercise.Test {
 
@@ -108,6 +109,19 @@ namespace PackageInstallerExercise.Test {
     public void TestAddPackageThrowContainsCycleExceptionWhenSamePackageAdded() {
       // Arrange, Act & Assert
       dependencyMap.Add("A", "A");
+    }
+
+    [TestMethod]
+    [Description("Should throw PackageDuplicateException Error package has already been added.")]
+    [ExpectedException(typeof(PackageDuplicateException))]
+    public void TestAddPackageThrowPackageDuplicateException() {
+
+      // Arrange
+      dependencyMap.Add("A", "B");
+
+      // Act
+      dependencyMap.Add("a", "b");
+
     }
 
     #endregion
