@@ -46,7 +46,7 @@ namespace PackageInstallerExercise.Packages {
       // If package already exists, throw exception
       if (package != null) {
         // TODO: pass what package was duplicated
-        throw new PackageDuplicateException();
+        throw new PackageDuplicateException(package);
       }
 
       // When dependencyName is passed, find it or create it
@@ -74,7 +74,7 @@ namespace PackageInstallerExercise.Packages {
       // Determine if it is contains a cycle
       if (isCycle(package, package.Name)) {
         // TODO: pass in the package so it can be displayed
-        throw new PackageContainsCycleException();
+        throw new PackageContainsCycleException(package);
       }
 
       // Add new package to the list of packages
