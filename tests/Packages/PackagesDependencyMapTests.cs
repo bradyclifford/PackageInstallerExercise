@@ -6,7 +6,11 @@ namespace PackageInstallerExercise.Test {
   public class PackagesDependencyMapTests {
 
     [TestMethod]
+    [Description("Should do something.")]
     public void TestMethod1() {
+
+
+
     }
 
   }

@@ -18,6 +18,7 @@ namespace PackageInstallerExercise.Test {
     }
 
     [TestMethod]
+    [Description("Should return a dependency map array list.")]
     public void TestCreateMapReturnsDependencyMapList() {
 
       // Arrange
@@ -33,6 +34,7 @@ namespace PackageInstallerExercise.Test {
     }
 
     [TestMethod]
+    [Description("Should fill the packages in the dependency amp.")]
     public void TestCreateMapFillPackagesDependencyMap() {
 
       // Arrange
