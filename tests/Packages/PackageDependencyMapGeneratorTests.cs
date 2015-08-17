@@ -64,12 +64,12 @@ namespace PackageInstallerExercise.Test {
       this.Packages = new Dictionary<string, string>();
     }
 
-    public IPackage Add(string packageName, string dependencyName) {
+    public IPaackage Add(string packageName, string dependencyName) {
       this.Packages.Add(packageName, dependencyName);
       return null;
     }
 
-    public string[] GetArray() {
+    public string[] GetMap() {
       return new string[] { "CamelCaser", "KittenService" };
     }
 

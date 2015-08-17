@@ -6,7 +6,7 @@ namespace PackageInstallerExercise.Interfaces {
   /// </summary>
   public interface IDependencyMap {
     IPackage Add(string packageName, string dependencyName);
-    string[] GetArray();
+    string[] GetMap();
   }
 
 }

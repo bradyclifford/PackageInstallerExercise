@@ -27,7 +27,7 @@ namespace PackageInstallerExercise.Packages {
     /// <returns>Array of dependencies in their build order</returns>
     public string[] CreateMap(string[] definitions) {
       FillMap(definitions);
-      return this._packageDependencyMap.GetArray();
+      return this._packageDependencyMap.GetMap();
     }
 
     private void FillMap(string[] definitions) {

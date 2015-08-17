@@ -83,7 +83,9 @@ namespace PackageInstallerExercise.Packages {
 
     }
 
-    public string[] GetArray() {
+    public string[] GetMap() {
+
+      // If already included, don't add to area.
       throw new NotImplementedException();
     }
 
