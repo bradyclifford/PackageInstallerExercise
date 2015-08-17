@@ -6,7 +6,7 @@ namespace PackageInstallerExercise.Packages {
   /// <summary>
   /// Package Dependency Map Generator
   /// </summary>
-  public class PackageDependencyMapGenerator : IDependencyMapGenerator {
+  public class PackagesDependencyMapGenerator : IDependencyMapGenerator {
 
     private char _delimiter;
 
@@ -14,7 +14,7 @@ namespace PackageInstallerExercise.Packages {
     /// Constructor
     /// </summary>
     /// <param name="delimiter">Delimiter separating the Package from the dependency</param>
-    public PackageDependencyMapGenerator(char delimiter) {
+    public PackagesDependencyMapGenerator(char delimiter) {
       _delimiter = delimiter;
     }
 

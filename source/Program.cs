@@ -24,15 +24,17 @@ namespace PackageInstallerExercise {
     private string[] _definitions;
 
     public Program(IOutputWriter writer, IDependencyMapGenerator generator) {
+      // Lazy dependency injection
       _writer = writer;
       _generator = generator;
     }
 
     public static int Main(string[] args) {
 
+      // Lazy dependency injection
       var program = new Program(
         new ConsoleOutputWriter(),
-        new PackageDependencyMapGenerator(':')
+        new PackagesDependencyMapGenerator(':')
       );
 
       return (int)program.Run(args);
