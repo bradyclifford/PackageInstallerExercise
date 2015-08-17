@@ -9,7 +9,7 @@ namespace PackageInstallerExercise.Packages {
   /// </summary>
   public class PackagesDependencyMap: IDependencyMap {
 
-    private IList _packages;
+    public IList Packages { get; private set; }
 
     public void Add(string packageName, string dependencyName) {
       throw new NotImplementedException();

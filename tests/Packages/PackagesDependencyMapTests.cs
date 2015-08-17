@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PackageInstallerExercise;
 using PackageInstallerExercise.Packages;
+using PackageInstallerExercise.Packages.Interfaces;
 
 namespace PackageInstallerExercise.Test {
 
@@ -21,10 +23,25 @@ namespace PackageInstallerExercise.Test {
       string packageName = "KittenService",
              dependencyName = "CamelCaser";
 
+      var package = new PackageMock(packageName, dependencyName);
+
       // Act
       dependencyMap.Add(packageName, dependencyName);
 
       // Assert
+      Assert.AreEqual(package, dependencyMap.Packages[0]);
+
+    }
+
+    public class PackageMock : IPackage {
+
+      public PackageMock(string name, string dependency = "") {
+        this.Name = name;
+        this.Dependency = dependency;
+      }
+
+      public string Name { get; private set; }
+      public string Dependency { get; private set; }
 
     }
 
