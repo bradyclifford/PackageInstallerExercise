@@ -37,17 +37,18 @@ namespace PackageInstallerExercise.Packages {
 
       IPackage dependency = default(P);
 
+      // TODO: through exception if packageName is Null
+
       // See if package already exists in the list
-      var package = this.Packages.Find(
+      var existingPackage = this.Packages.Find(
         p => p.Name.Equals(
           packageName,
           StringComparison.CurrentCultureIgnoreCase
         ));
 
-      // If package already exists, throw exception
-      if (package != null) {
-        // TODO: pass what package was duplicated
-        throw new PackageDuplicateException(package);
+      // If package already has a dependency, throw duplicate error
+      if (existingPackage != null && existingPackage.Dependency != null) {
+        throw new PackageDuplicateException(existingPackage);
       }
 
       // When dependencyName is passed, find it or create it
@@ -58,28 +59,42 @@ namespace PackageInstallerExercise.Packages {
 
         // If dependency package doesn't already exist, create a new instance
         if (dependency == null) {
+          
           dependency = new P() {
             Name = dependencyName
           };
+
+          // Add to package list so can be found again
+          this.Packages.Add(dependency);
 
         }
 
       }
 
-      // Create new package
-      package = new P() {
-        Name = packageName,
-        Dependency = dependency
-      };
+      IPackage package;
 
-      // Determine if it is contains a cycle
+      // Create new package when not found
+      if (existingPackage == null) {
+        package = new P() {
+          Name = packageName
+        };
+      }
+      else { // Use existing package
+        package = existingPackage;
+      }
+
+      package.Dependency = dependency;
+
+      // Determine if it contains a cycle
       if (isCycle(package, package.Name)) {
-        // TODO: pass in the package so it can be displayed
         throw new PackageContainsCycleException(package);
       }
 
       // Add new package to the list of packages
-      this.Packages.Add(package);
+      if (existingPackage == null) {
+        this.Packages.Add(package);
+      }
+
       return this.Packages.Last();
 
     }
@@ -89,17 +104,17 @@ namespace PackageInstallerExercise.Packages {
       var map = new List<string>();
 
       foreach (var package in this.Packages) {
-        RecurseThroughDependencies(package, map);
+        GetPackageDependencies(package, map);
       }
 
       return map.ToArray();
 
     }
 
-    private void RecurseThroughDependencies(IPackage package, IList map) {
+    private void GetPackageDependencies(IPackage package, IList map) {
 
       if (package.Dependency != null) {
-        RecurseThroughDependencies(package.Dependency, map);
+        GetPackageDependencies(package.Dependency, map);
       }
 
       // Don't add if package is already in map list
@@ -129,7 +144,7 @@ namespace PackageInstallerExercise.Packages {
         return true;
       }
 
-      // When dependency Name is the same as the orginal package name, its a cycle
+      // When dependency Name is the same as the original package name, its a cycle
       if (package.Dependency.Name == originalPackageName) {
         return true;
       }

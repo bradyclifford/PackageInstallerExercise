@@ -142,7 +142,7 @@ namespace PackageInstallerExercise.Test {
       var actual = dependencyMap.GetMap();
 
       // Assert
-      Assert.AreEqual(expected, actual);
+      CollectionAssert.AreEqual(expected, actual);
 
     }
 
@@ -170,6 +170,17 @@ namespace PackageInstallerExercise.Test {
         return (Name == p.Name) && 
           (Dependency == null && p.Dependency == null || (Dependency.Equals(p.Dependency)));
 
+      }
+
+      public override string ToString() {
+
+        string value = this.Name;
+
+        if (this.Dependency != null) {
+          value += ":" + this.Dependency.Name;
+        }
+
+        return value;
       }
 
     }
