@@ -2,6 +2,7 @@
 using PackageInstallerExercise.Packages;
 using System.Collections.Generic;
 using PackageInstallerExercise.Interfaces;
+using PackageInstallerExercise.Packages.Interfaces;
 
 namespace PackageInstallerExercise.Test {
 
@@ -63,8 +64,9 @@ namespace PackageInstallerExercise.Test {
       this.Packages = new Dictionary<string, string>();
     }
 
-    public void Add(string packageName, string dependencyName) {
+    public IPackage Add(string packageName, string dependencyName) {
       this.Packages.Add(packageName, dependencyName);
+      return null;
     }
 
     public string[] GetArray() {

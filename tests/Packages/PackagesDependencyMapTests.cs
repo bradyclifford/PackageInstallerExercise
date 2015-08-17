@@ -23,13 +23,18 @@ namespace PackageInstallerExercise.Test {
       string packageName = "KittenService",
              dependencyName = "CamelCaser";
 
-      var package = new PackageMock(packageName, dependencyName);
+      var expectedPackage = new PackageMock() {
+        Name = packageName,
+        Dependency = new PackageMock() {
+          Name = dependencyName
+        }
+      };
 
       // Act
-      dependencyMap.Add(packageName, dependencyName);
+      var actualPackage = dependencyMap.Add(packageName, dependencyName);
 
       // Assert
-      Assert.AreEqual(package, dependencyMap.Packages[0]);
+      Assert.AreEqual(expectedPackage, actualPackage);
 
     }
 
@@ -41,31 +46,24 @@ namespace PackageInstallerExercise.Test {
       string packageName = "KittenService",
              dependencyName = "CamelCaser";
 
-      var packageDependency = new PackageMock(dependencyName);
       var expectedPackage = new PackageMock() {
         Name = packageName,
-        Dependency = packageDependency
+        Dependency = new PackageMock() {
+          Name = dependencyName
+        }
       };
 
-      // Add package dependency first
-      dependencyMap.Add(dependencyName);
+      dependencyMap.Add(dependencyName); // Add package dependency first
 
       // Act
-      dependencyMap.Add(packageName, dependencyName);
+      var actualPackage = dependencyMap.Add(packageName, dependencyName);
 
       // Assert
-      Assert.AreEqual(expectedPackage, dependencyMap.Packages[0]);
+      Assert.AreEqual(expectedPackage, actualPackage);
 
     }
 
     public class PackageMock : IPackage {
-
-      public PackageMock() { }
-
-      public PackageMock(string name, string dependency = "") {
-        this.Name = name;
-        this.Dependency = dependency;
-      }
 
       public string Name { get; set; }
       public IPackage Dependency { get; set; }
@@ -84,7 +82,8 @@ namespace PackageInstallerExercise.Test {
         }
 
         // Return true if the fields match:
-        return (Name == p.Name) && (Dependency == p.Dependency);
+        return (Name == p.Name) && 
+          (Dependency == null && p.Dependency == null || (Dependency.Equals(p.Dependency)));
 
       }
 
