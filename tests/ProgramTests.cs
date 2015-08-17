@@ -111,6 +111,21 @@ namespace PackageInstallerExercise.Test {
     }
 
     [TestMethod]
+    [Description("Argument cannot have just a colon.")]
+    public void TestMainArgumentJustColon() {
+
+      // Arrange
+      string[] input = { ":" };
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(ConsoleReturnTypes.ArgumentsIncorrectFormat, result);
+
+    }
+
+    [TestMethod]
     [Description("Inform User that something went wrong.")]
     public void TestRunInformUserOfFailure() {
 
