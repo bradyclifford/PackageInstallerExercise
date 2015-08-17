@@ -5,6 +5,9 @@
   /// </summary>
   public interface IPackage {
 
+    string Name { get; set; }
+    string Dependency { get; set; }
+
   }
 
 }

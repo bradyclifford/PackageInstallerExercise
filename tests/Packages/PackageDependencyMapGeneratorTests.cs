@@ -8,13 +8,13 @@ namespace PackageInstallerExercise.Test {
   [TestClass]
   public class PackageDependencyMapGeneratorTests {
 
-    private PackagesDependencyMapGenerator generator;
+    private PackagesDependencyMapGenerator<PackagesDependencyMapMock> generator;
     private PackagesDependencyMapMock dependencyMap;
 
     [TestInitialize()]
     public void Initialize() {
       dependencyMap = new PackagesDependencyMapMock();
-      generator = new PackagesDependencyMapGenerator(':', dependencyMap);
+      generator = new PackagesDependencyMapGenerator<PackagesDependencyMapMock>(':');
     }
 
     [TestMethod]

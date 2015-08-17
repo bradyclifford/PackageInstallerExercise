@@ -36,7 +36,7 @@ namespace PackageInstallerExercise {
       // Lazy dependency injection
       var program = new Program(
         new ConsoleOutputWriter(),
-        new PackagesDependencyMapGenerator(':')
+        new PackagesDependencyMapGenerator<PackagesDependencyMap<Package>>(':')
       );
 
       return (int)program.Run(args);

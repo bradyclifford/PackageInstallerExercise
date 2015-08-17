@@ -8,11 +8,11 @@ namespace PackageInstallerExercise.Test {
   [TestClass]
   public class PackagesDependencyMapTests {
 
-    private PackagesDependencyMap dependencyMap;
+    private PackagesDependencyMap<PackageMock> dependencyMap;
 
     [TestInitialize()]
     public void Initialize() {
-      dependencyMap = new PackagesDependencyMap();
+      dependencyMap = new PackagesDependencyMap<PackageMock>();
     }
 
     [TestMethod]
@@ -35,13 +35,15 @@ namespace PackageInstallerExercise.Test {
 
     public class PackageMock : IPackage {
 
+      public PackageMock() { }
+
       public PackageMock(string name, string dependency = "") {
         this.Name = name;
         this.Dependency = dependency;
       }
 
-      public string Name { get; private set; }
-      public string Dependency { get; private set; }
+      public string Name { get; set; }
+      public string Dependency { get; set; }
 
     }
 
