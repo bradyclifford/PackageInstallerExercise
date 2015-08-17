@@ -13,11 +13,12 @@ namespace PackageInstallerExercise.Test {
       // Arrange
       string[] input = { "KittenService: CamelCaser, CamelCaser:" };
       var expectedOutput = "CamelCaser, KittenService";
+
       var writer = new ConsoleOutputWriterMock();
-      PackageInstallerExercise.Program.Writer = writer;
+      var program = new Program(writer);
 
       // Act
-      PackageInstallerExercise.Program.Main(input);
+      program.Run(input);
 
       // Assert
       Assert.AreEqual(expectedOutput, writer.GetLastLine());

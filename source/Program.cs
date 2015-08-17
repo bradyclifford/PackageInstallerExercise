@@ -10,29 +10,39 @@ This exercise is to write the code that will determine the order of install.
 
 namespace PackageInstallerExercise {
 
+  /// <summary>
+  /// Program to execute at run
+  /// </summary>
   public class Program {
 
-    private static IOutputWriter _writer;
-    public static IOutputWriter Writer {
+    // Interface used to output results
+    private IOutputWriter _writer;
 
-      get {
-
-        if (_writer == null) {
-          return new ConsoleOutputWriter();
-        }
-        
-        return _writer;
-
-      }
-
-      set { _writer = value; }
-
+    public Program(IOutputWriter writer) {
+      _writer = writer;
     }
 
     public static void Main(string[] args) {
 
-      Writer.WriteLine("CamelCaser, KittenService");
+      var program = new Program(new ConsoleOutputWriter());
+      program.Run(args);
 
+    }
+
+    /// <summary>
+    /// Execute the program
+    /// </summary>
+    /// <param name="args">Array of Arguments</param>
+    public void Run(string[] args) {
+      WriteLine("CamelCaser, KittenService");
+    }
+
+    /// <summary>
+    /// Write string as a line to output
+    /// </summary>
+    /// <param name="s">Line to output</param>
+    private void WriteLine(string s) {
+      _writer.WriteLine(s);
     }
 
   }
