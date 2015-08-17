@@ -33,10 +33,12 @@ namespace PackageInstallerExercise {
 
     public static int Main(string[] args) {
 
+      var dependencyMap = new PackagesDependencyMap<Package>();
+
       // Lazy dependency injection
       var program = new Program(
         new ConsoleOutputWriter(),
-        new PackagesDependencyMapGenerator<PackagesDependencyMap<Package>>(':')
+        new PackagesDependencyMapGenerator(':', dependencyMap)
       );
 
       return (int)program.Run(args);
