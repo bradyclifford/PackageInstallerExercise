@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ConsoleOutputWriter.cs" />
     <Compile Include="Interfaces\IDependencyMap.cs" />
+    <Compile Include="Packages\PackagesDependencyMap.cs" />
     <Compile Include="Types\ConsoleReturnTypes.cs" />
     <Compile Include="Interfaces\IDependencyMapGenerator.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
