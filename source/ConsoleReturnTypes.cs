@@ -4,6 +4,7 @@
   /// </summary>
   public enum ConsoleReturnTypes {
     Success = 0,
-    NoArguments = 1
+    NoArguments = 1,
+    TooManyArguments = 2
   }
 }

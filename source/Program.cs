@@ -48,6 +48,11 @@ namespace PackageInstallerExercise {
         return ConsoleReturnTypes.NoArguments;
       }
 
+      // Can only handle one argument
+      if (args.Length > 1) {
+        return ConsoleReturnTypes.TooManyArguments;
+      }
+
       return ConsoleReturnTypes.Success;
 
     }

@@ -56,7 +56,7 @@ namespace PackageInstallerExercise.Test {
       var result = program.Run(input);
 
       // Assert
-      Assert.AreEqual(2, result);
+      Assert.AreEqual(ConsoleReturnTypes.TooManyArguments, result);
 
     }
 
