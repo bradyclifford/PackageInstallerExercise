@@ -137,7 +137,7 @@ namespace PackageInstallerExercise.Test {
       var result = program.Run(input);
 
       // Assert
-      Assert.AreEqual(expected, generator.Definitions);
+      CollectionAssert.AreEqual(expected, generator.Definitions);
 
     }
 

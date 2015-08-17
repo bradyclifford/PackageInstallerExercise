@@ -115,6 +115,14 @@ namespace PackageInstallerExercise {
         return ConsoleReturnTypes.ArgumentsIncorrectFormat;
       }
 
+      var splitDefinitions = packagesList.Split(',');
+
+      for (int i = 0; i < splitDefinitions.Length; i++ ) {
+        splitDefinitions[i] = splitDefinitions[i].Trim();
+      }
+
+      this._definitions = splitDefinitions;
+
       return ConsoleReturnTypes.Success;
 
     }
