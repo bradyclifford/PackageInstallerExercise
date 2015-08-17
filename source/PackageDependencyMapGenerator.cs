@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using PackageInstallerExercise.Interfaces;
+using System;
 
-namespace PackageInstallerExercise {
+namespace PackageInstallerExercise.Packages {
 
   /// <summary>
   /// Package Dependecy Map Generator

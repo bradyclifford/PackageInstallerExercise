@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace PackageInstallerExercise {
+namespace PackageInstallerExercise.Interfaces {
 
   /// <summary>
   /// Dependency Map Generator Interface

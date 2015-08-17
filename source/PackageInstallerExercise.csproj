@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutputWriter.cs" />
-    <Compile Include="ConsoleReturnTypes.cs" />
-    <Compile Include="IDependencyMapGenerator.cs" />
-    <Compile Include="IOutputWriter.cs" />
+    <Compile Include="Types\ConsoleReturnTypes.cs" />
+    <Compile Include="Interfaces\IDependencyMapGenerator.cs" />
+    <Compile Include="Interfaces\IOutputWriter.cs" />
     <Compile Include="PackageDependencyMapGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PackageInstallerExercise.Interfaces;
+using System;
 
 namespace PackageInstallerExercise {
 

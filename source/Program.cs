@@ -8,6 +8,8 @@ This exercise is to write the code that will determine the order of install.
 
 */
 
+using PackageInstallerExercise.Interfaces;
+using PackageInstallerExercise.Packages;
 using System;
 namespace PackageInstallerExercise {
 
@@ -29,7 +31,7 @@ namespace PackageInstallerExercise {
     public static int Main(string[] args) {
 
       var program = new Program(
-        new ConsoleOutputWriter(), 
+        new ConsoleOutputWriter(),
         new PackageDependencyMapGenerator(':')
       );
 
@@ -52,7 +54,7 @@ namespace PackageInstallerExercise {
 
         // When we have a failure, stop and inform user
         if (result != ConsoleReturnTypes.Success) {
-          ProcessError(result);
+          HandleError(result);
           return result;
         }
 
@@ -62,7 +64,7 @@ namespace PackageInstallerExercise {
       }
       catch (Exception e) {
         result = ConsoleReturnTypes.UnknownFailure;
-        ProcessError(result, e.ToString());
+        HandleError(result, e.ToString());
       }
 
       return result;
@@ -74,7 +76,7 @@ namespace PackageInstallerExercise {
     /// </summary>
     /// <param name="failureType"></param>
     /// <param name="details">Additional details</param>
-    private void ProcessError(ConsoleReturnTypes failureType, string details = null) {
+    private void HandleError(ConsoleReturnTypes failureType, string details = null) {
 
       switch (failureType) {
         case ConsoleReturnTypes.NoArguments:
@@ -90,8 +92,8 @@ namespace PackageInstallerExercise {
 
         default:
           string line = string.Format(
-            "An error occurred: {0}. Details: [{1}].", 
-            Enum.GetName(typeof(ConsoleReturnTypes), failureType), 
+            "An error occurred: {0}. \nDetails: [{1}].",
+            Enum.GetName(typeof(ConsoleReturnTypes), failureType),
             details
           );
 
@@ -123,7 +125,7 @@ namespace PackageInstallerExercise {
       var packagesList = args[0];
 
       // Verify the argument isn't empty and contains our delimiter.
-      if (string.IsNullOrEmpty(packagesList) || 
+      if (string.IsNullOrEmpty(packagesList) ||
         !packagesList.Contains(":")) {
         return ConsoleReturnTypes.ArgumentsIncorrectFormat;
       }
@@ -149,7 +151,7 @@ namespace PackageInstallerExercise {
       var splitDefinitions = packagesList.Split(',');
 
       // Remove any trailing or leading white spaces
-      for (int i = 0; i < splitDefinitions.Length; i++ ) {
+      for (int i = 0; i < splitDefinitions.Length; i++) {
         splitDefinitions[i] = splitDefinitions[i].Trim();
       }
 

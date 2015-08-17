@@ -1,4 +1,4 @@
-﻿namespace PackageInstallerExercise {
+﻿namespace PackageInstallerExercise.Interfaces {
   /// <summary>
   /// Output Writer Interface
   /// </summary>
