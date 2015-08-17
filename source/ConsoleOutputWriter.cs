@@ -7,11 +7,9 @@ namespace PackageInstallerExercise {
   /// Console Output Writer
   /// </summary>
   class ConsoleOutputWriter: IOutputWriter {
-
     public void WriteLine(string s) {
       Console.WriteLine(s);
     }
-
   }
 
 }

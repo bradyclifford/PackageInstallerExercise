@@ -10,7 +10,9 @@ This exercise is to write the code that will determine the order of install.
 
 using PackageInstallerExercise.Interfaces;
 using PackageInstallerExercise.Packages;
+using PackageInstallerExercise.Types;
 using System;
+
 namespace PackageInstallerExercise {
 
   /// <summary>

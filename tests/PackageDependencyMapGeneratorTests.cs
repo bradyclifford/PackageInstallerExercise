@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PackageInstallerExercise.Packages;
 using System.Collections.Generic;
-using PackageInstallerExercise;
-using PackageInstallerExercise.Packages.Interfaces;
+using PackageInstallerExercise.Interfaces;
 
 namespace PackageInstallerExercise.Test {
 
@@ -55,7 +53,7 @@ namespace PackageInstallerExercise.Test {
 
   }
 
-  public class PackagesDependencyMapMock : IPackageDependencyMap {
+  public class PackagesDependencyMapMock : IDependencyMap {
 
     public Dictionary<string, string> Packages { get; private set; }
 
