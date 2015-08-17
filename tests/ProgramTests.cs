@@ -43,6 +43,23 @@ namespace PackageInstallerExercise.Test {
 
     }
 
+    [TestMethod]
+    [Description("Should fail when more than one argument passed.")]
+    public void TestMainOutputMoreThanOneArgument() {
+
+      // Arrange
+      string[] input = { "argument1", "argument2" };
+      var writer = new ConsoleOutputWriterMock();
+      var program = new Program(writer);
+
+      // Act
+      var result = program.Run(input);
+
+      // Assert
+      Assert.AreEqual(2, result);
+
+    }
+
   }
 
   /// <summary>
