@@ -24,8 +24,8 @@ namespace PackageInstallerExercise.Packages {
       }
 
       // Return true if the fields match:
-      return (Name == p.Name) &&
-        (Dependency == null && p.Dependency == null || (Dependency.Equals(p.Dependency)));
+      // TODO: do we need to match of the dependency name as well?
+      return Name == p.Name;
 
     }
 

@@ -76,6 +76,48 @@ namespace PackageInstallerExercise.Test.Packages {
 
     }
 
+    [TestMethod]
+    [Description("Should be equal when both packages have same name but different dependencies.")]
+    public void TestEqualSameNameDifferentDependency() {
+
+      // Arrange
+      string packageName = "A",
+          dependencyName = "B";
+
+      var package1 = new Package() {
+        Name = packageName,
+        Dependency = new Package() {
+          Name = dependencyName
+        }
+      };
+
+      var package2 = new Package() {
+        Name = packageName
+      };
+
+      // Act & Assert
+      Assert.AreEqual(package1, package2);
+
+    }
+
+    [TestMethod]
+    [Description("Should not be equal when both packages have same name but different dependencies.")]
+    public void TestNotEqual() {
+
+      // Arrange
+      var package1 = new Package() {
+        Name = "A"
+      };
+
+      var package2 = new Package() {
+        Name = "B"
+      };
+
+      // Act & Assert
+      Assert.AreNotEqual(package1, package2);
+
+    }
+
   }
 
 }
