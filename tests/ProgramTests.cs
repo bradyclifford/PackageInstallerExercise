@@ -7,6 +7,15 @@ namespace PackageInstallerExercise.Test {
   [TestClass]
   public class ProgramTests {
 
+    private ConsoleOutputWriterMock writer;
+    private Program program;
+
+    [TestInitialize()]
+    public void Initialize() {
+      writer = new ConsoleOutputWriterMock();
+      program = new Program(writer);
+    }
+
     [TestMethod]
     [Description("Should write successful output to screen.")]
     public void TestMainOutput() {
@@ -14,9 +23,6 @@ namespace PackageInstallerExercise.Test {
       // Arrange
       string[] input = { "KittenService: CamelCaser, CamelCaser:" };
       var expectedOutput = "CamelCaser, KittenService";
-
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       program.Run(input);
@@ -32,8 +38,6 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       string[] input = { };
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       var result = program.Run(input);
@@ -49,8 +53,6 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       string[] input = { "argument1", "argument2" };
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       var result = program.Run(input);
@@ -66,8 +68,6 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       string[] input = { "argument1 with no colon" };
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       var result = program.Run(input);
@@ -83,8 +83,6 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       string[] input = { "KittenService:" };
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       var result = program.Run(input);
@@ -100,8 +98,6 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       string[] input = { "" }; // Empty String
-      var writer = new ConsoleOutputWriterMock();
-      var program = new Program(writer);
 
       // Act
       var result = program.Run(input);
@@ -126,10 +122,6 @@ namespace PackageInstallerExercise.Test {
 
     public string GetLastLine() {
       return _writtenLines.Last();
-    }
-
-    public void Flush() {
-      _writtenLines = new List<string>();
     }
 
   }
