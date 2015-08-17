@@ -23,7 +23,7 @@ namespace PackageInstallerExercise.Test {
     public void TestCreateMapReturnsDependencyMapList() {
 
       // Arrange
-      string[] definitions = { "KittenService: CamelCaser, CamelCaser:" };
+      string[] definitions = { "KittenService: CamelCaser", "CamelCaser:" };
       string[] expected = { "CamelCaser", "KittenService" };
 
       // Act
@@ -38,7 +38,7 @@ namespace PackageInstallerExercise.Test {
     public void TestCreateMapFillPackagesDependencyMap() {
 
       // Arrange
-      string[] definitions = { "KittenService: CamelCaser, CamelCaser:" };
+      string[] definitions = { "KittenService: CamelCaser", "CamelCaser:" };
 
       var expectedPackagesAdded = new Dictionary<string, string>() {
         { "KittenService", "CamelCaser" },
@@ -59,8 +59,12 @@ namespace PackageInstallerExercise.Test {
 
     public Dictionary<string, string> Packages { get; private set; }
 
-    public void Add(string packageName, string packageDependency) {
-      this.Packages.Add(packageName, packageDependency);
+    public PackagesDependencyMapMock() {
+      this.Packages = new Dictionary<string, string>();
+    }
+
+    public void Add(string packageName, string dependencyName) {
+      this.Packages.Add(packageName, dependencyName);
     }
 
   }

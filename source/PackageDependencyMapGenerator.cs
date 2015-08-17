@@ -31,7 +31,21 @@ namespace PackageInstallerExercise.Packages {
 
     private void FillMap(string[] definitions) {
 
-      
+      foreach (string definition in definitions) {
+
+        // Strip out package:dependency from string
+        string[] packageAndDependency = definition.Split(this._delimiter);
+
+        if (packageAndDependency.Length != 2) {
+          throw new FormatException("Dependency string is not in the correct format.");
+        }
+
+        string packageName = packageAndDependency[0].Trim();
+        string dependencyName = packageAndDependency[1].Trim();
+
+        this._packageDependencyMap.Add(packageName, dependencyName);
+
+      }
 
     }
 
