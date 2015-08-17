@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using PackageInstallerExercise.Packages.Exceptions;
 
 namespace PackageInstallerExercise.Packages {
 
@@ -36,13 +37,16 @@ namespace PackageInstallerExercise.Packages {
       IPackage dependency = default(P);
 
       // See if package already exists in the list
-      var package = this.Packages.Find(p => p.Name == packageName);
+      var package = this.Packages.Find(
+        p => p.Name.Equals(
+          packageName,
+          StringComparison.CurrentCultureIgnoreCase
+        ));
 
-      // If package doesn't already exist, create a new instance
-      if (package == null) {
-        package = new P() {
-          Name = packageName
-        };
+      // If package already exists, throw exception
+      if (package != null) {
+        // TODO: pass what package was duplicated
+        throw new PackageDuplicateException();
       }
 
       // When dependencyName is passed, find it or create it
@@ -57,14 +61,17 @@ namespace PackageInstallerExercise.Packages {
             Name = dependencyName
           };
 
-          // TODO: will need to remove this so the printed order is correct
-          this.Packages.Add(dependency);
         }
 
       }
 
-      package.Dependency = dependency;
+      // Create new package
+      package = new P() {
+        Name = packageName,
+        Dependency = dependency
+      };
 
+      // Determine if it is contains a cycle
       if (isCycle(package, package.Name)) {
         // TODO: pass in the package so it can be displayed
         throw new PackageContainsCycleException();

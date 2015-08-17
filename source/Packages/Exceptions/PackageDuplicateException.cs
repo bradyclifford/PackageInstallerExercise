@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PackageInstallerExercise.Test.Packages {
+namespace PackageInstallerExercise.Packages.Exceptions {
   public class PackageDuplicateException : Exception {
   }
 }

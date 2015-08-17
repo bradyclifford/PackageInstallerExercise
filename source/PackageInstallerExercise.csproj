@@ -46,9 +46,10 @@
   <ItemGroup>
     <Compile Include="ConsoleOutputWriter.cs" />
     <Compile Include="Interfaces\IDependencyMap.cs" />
-    <Compile Include="PackageContainsCycleException.cs" />
+    <Compile Include="Packages\Exceptions\PackageContainsCycleException.cs" />
     <Compile Include="Packages\Interfaces\IPackage.cs" />
     <Compile Include="Packages\Package.cs" />
+    <Compile Include="Packages\Exceptions\PackageDuplicateException.cs" />
     <Compile Include="Packages\PackagesDependencyMap.cs" />
     <Compile Include="Types\ConsoleReturnTypes.cs" />
     <Compile Include="Interfaces\IDependencyMapGenerator.cs" />

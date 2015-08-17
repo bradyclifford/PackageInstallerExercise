@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PackageInstallerExercise;
 using PackageInstallerExercise.Packages;
+using PackageInstallerExercise.Packages.Exceptions;
 using PackageInstallerExercise.Packages.Interfaces;
-using PackageInstallerExercise.Test.Packages;
 
 namespace PackageInstallerExercise.Test {
 
@@ -120,7 +120,7 @@ namespace PackageInstallerExercise.Test {
       dependencyMap.Add("A", "B");
 
       // Act
-      dependencyMap.Add("a", "b");
+      dependencyMap.Add("a"); // Add same package but lowercase
 
     }
 
