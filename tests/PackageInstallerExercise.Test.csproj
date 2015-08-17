@@ -53,6 +53,12 @@
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\source\PackageInstallerExercise.csproj">
+      <Project>{470c61de-803b-448b-886d-83bffbc2fa81}</Project>
+      <Name>PackageInstallerExercise</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

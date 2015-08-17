@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PackageInstallerExercise.Test {
 
@@ -10,15 +11,38 @@ namespace PackageInstallerExercise.Test {
     public void TestMainOutput() {
 
       // Arrange
-      var input = "KittenService: CamelCaser, CamelCaser:";
+      string[] input = { "KittenService: CamelCaser, CamelCaser:" };
       var expectedOutput = "CamelCaser, KittenService";
+      var writer = new ConsoleOutputWriterMock();
+      PackageInstallerExercise.Program.Writer = writer;
 
       // Act
-      PackageInstallerExercise.Program.Main({ input });
+      PackageInstallerExercise.Program.Main(input);
 
       // Assert
-      Assert.AreEqual(expectedOutput, ConsoleOutputWriterMock.GetLastLine());
+      Assert.AreEqual(expectedOutput, writer.GetLastLine());
 
+    }
+
+  }
+
+  /// <summary>
+  /// Stub ConsoleOutputWriter for mocking anything written to the screen
+  /// </summary>
+  public class ConsoleOutputWriterMock : IOutputWriter {
+
+    private List<string> _writtenLines = new List<string>();
+
+    public void WriteLine(string s) {
+      _writtenLines.Add(s);
+    }
+
+    public string GetLastLine() {
+      return _writtenLines.Last();
+    }
+
+    public void Flush() {
+      _writtenLines = new List<string>();
     }
 
   }
