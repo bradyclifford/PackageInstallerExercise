@@ -15,6 +15,8 @@ namespace PackageInstallerExercise.Test {
       dependencyMap = new PackagesDependencyMap<PackageMock>();
     }
 
+    #region Tests
+
     [TestMethod]
     [Description("Should add a package to the dependency map.")]
     public void TestAddPackageToDependencyMap() {
@@ -39,7 +41,7 @@ namespace PackageInstallerExercise.Test {
     }
 
     [TestMethod]
-    [Description("Should add a package and link its dependency to an existing pacakge.")]
+    [Description("Should add a package and link its dependency to an existing package.")]
     public void TestAddPackageToDependencyMapAndLink() {
 
       // Arrange
@@ -62,6 +64,31 @@ namespace PackageInstallerExercise.Test {
       Assert.AreEqual(expectedPackage, actualPackage);
 
     }
+
+    [TestMethod]
+    [Description("Should add a package and a new dependency to the package list when it doesn't already exist.")]
+    public void TestAddPackageToDependencyMapAndCreateDependencyPackage() {
+
+      // Arrange
+      string packageName = "KittenService",
+             dependencyName = "CamelCaser";
+
+      var expectedPackage = new PackageMock() {
+        Name = packageName,
+        Dependency = new PackageMock() {
+          Name = dependencyName
+        }
+      };
+
+      // Act
+      var actualPackage = dependencyMap.Add(packageName, dependencyName);
+
+      // Assert
+      Assert.AreEqual(expectedPackage, actualPackage);
+
+    }
+
+    #endregion
 
     public class PackageMock : IPackage {
 
