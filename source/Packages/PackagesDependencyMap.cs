@@ -37,7 +37,9 @@ namespace PackageInstallerExercise.Packages {
 
       IPackage dependency = default(P);
 
-      // TODO: through exception if packageName is Null
+      if (string.IsNullOrWhiteSpace(packageName)) {
+        throw new ArgumentException("Package name cannot be empty.");
+      }
 
       // See if package already exists in the list
       var existingPackage = this.Packages.Find(
@@ -52,7 +54,7 @@ namespace PackageInstallerExercise.Packages {
       }
 
       // When dependencyName is passed, find it or create it
-      if (!string.IsNullOrEmpty(dependencyName)) {
+      if (!string.IsNullOrWhiteSpace(dependencyName)) {
 
         // See if dependency already exists in the list
         dependency = this.Packages.Find(p => p.Name == dependencyName);
@@ -99,10 +101,14 @@ namespace PackageInstallerExercise.Packages {
 
     }
 
+    /// <summary>
+    /// Generates a dependency map
+    /// </summary>
+    /// <returns>Array of dependency names</returns>
     public string[] GetMap() {
 
       var map = new List<string>();
-
+     
       foreach (var package in this.Packages) {
         GetPackageDependencies(package, map);
       }
@@ -111,8 +117,14 @@ namespace PackageInstallerExercise.Packages {
 
     }
 
+    /// <summary>
+    /// Recursively adds each dependency name in its correct order in the tree.
+    /// </summary>
+    /// <param name="package">Package</param>
+    /// <param name="map">Map List</param>
     private void GetPackageDependencies(IPackage package, IList map) {
 
+      // Recurse through tree if dependency exists
       if (package.Dependency != null) {
         GetPackageDependencies(package.Dependency, map);
       }
@@ -122,6 +134,7 @@ namespace PackageInstallerExercise.Packages {
         return;
       }
 
+      // Add the package Name to the list.
       map.Add(package.Name);
 
     }

@@ -18,114 +18,139 @@ namespace PackageInstallerExercise.Test {
 
     #region Tests
 
-    [TestMethod]
-    [Description("Should add a package to the dependency map.")]
-    public void TestAddPackageToDependencyMap() {
+      #region AddPackage
 
-      // Arrange
-      string packageName = "KittenService",
-             dependencyName = "CamelCaser";
+      [TestMethod]
+      [Description("Should add a package to the dependency map.")]
+      public void TestAddPackageToDependencyMap() {
 
-      var expectedPackage = new PackageMock() {
-        Name = packageName,
-        Dependency = new PackageMock() {
-          Name = dependencyName
+        // Arrange
+        string packageName = "KittenService",
+               dependencyName = "CamelCaser";
+
+        var expectedPackage = new PackageMock() {
+          Name = packageName,
+          Dependency = new PackageMock() {
+            Name = dependencyName
+          }
+        };
+
+        // Act
+        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+
+        // Assert
+        Assert.AreEqual(expectedPackage, actualPackage);
+
+      }
+
+      [TestMethod]
+      [Description("Should add a package and link its dependency to an existing package.")]
+      public void TestAddPackageToDependencyMapAndLink() {
+
+        // Arrange
+        string packageName = "KittenService",
+               dependencyName = "CamelCaser";
+
+        var expectedPackage = new PackageMock() {
+          Name = packageName,
+          Dependency = new PackageMock() {
+            Name = dependencyName
+          }
+        };
+
+        dependencyMap.Add(dependencyName); // Add package dependency first
+
+        // Act
+        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+
+        // Assert
+        Assert.AreEqual(expectedPackage, actualPackage);
+
+      }
+
+      [TestMethod]
+      [Description("Should add a package and a new dependency to the package list when it doesn't already exist.")]
+      public void TestAddPackageToDependencyMapAndCreateDependencyPackage() {
+
+        // Arrange
+        string packageName = "KittenService",
+               dependencyName = "CamelCaser";
+
+        var expectedPackage = new PackageMock() {
+          Name = packageName,
+          Dependency = new PackageMock() {
+            Name = dependencyName
+          }
+        };
+
+        // Act
+        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+
+        // Assert
+        Assert.AreEqual(expectedPackage, actualPackage);
+
+      }
+
+        #region Contains Cycle
+
+        [TestMethod]
+        [Description("Should throw PackageContainsCycleException Error.")]
+        [ExpectedException(typeof(PackageContainsCycleException))]
+        public void TestAddPackageThrowContainsCycleException() {
+
+          // Arrange
+          dependencyMap.Add("A", "C");
+          dependencyMap.Add("B", "A");
+
+          // Act & Assert
+          dependencyMap.Add("C", "B");
+
         }
-      };
 
-      // Act
-      var actualPackage = dependencyMap.Add(packageName, dependencyName);
+        [TestMethod]
+        [Description("Should throw PackageContainsCycleException Error. Scenario from exercise.")]
+        [ExpectedException(typeof(PackageContainsCycleException))]
+        public void TestAddPackageThrowContainsCycleException2() {
 
-      // Assert
-      Assert.AreEqual(expectedPackage, actualPackage);
+          // Arrange
+          dependencyMap.Add("A");
+          dependencyMap.Add("B", "C");
+          dependencyMap.Add("C", "F");
+          dependencyMap.Add("D", "A");
+          dependencyMap.Add("E");
 
-    }
+          // Act & Assert
+          dependencyMap.Add("F", "B");
 
-    [TestMethod]
-    [Description("Should add a package and link its dependency to an existing package.")]
-    public void TestAddPackageToDependencyMapAndLink() {
-
-      // Arrange
-      string packageName = "KittenService",
-             dependencyName = "CamelCaser";
-
-      var expectedPackage = new PackageMock() {
-        Name = packageName,
-        Dependency = new PackageMock() {
-          Name = dependencyName
         }
-      };
 
-      dependencyMap.Add(dependencyName); // Add package dependency first
-
-      // Act
-      var actualPackage = dependencyMap.Add(packageName, dependencyName);
-
-      // Assert
-      Assert.AreEqual(expectedPackage, actualPackage);
-
-    }
-
-    [TestMethod]
-    [Description("Should add a package and a new dependency to the package list when it doesn't already exist.")]
-    public void TestAddPackageToDependencyMapAndCreateDependencyPackage() {
-
-      // Arrange
-      string packageName = "KittenService",
-             dependencyName = "CamelCaser";
-
-      var expectedPackage = new PackageMock() {
-        Name = packageName,
-        Dependency = new PackageMock() {
-          Name = dependencyName
+        [TestMethod]
+        [Description("Should throw PackageContainsCycleException Error when a package and its dependency are the same.")]
+        [ExpectedException(typeof(PackageContainsCycleException))]
+        public void TestAddPackageThrowContainsCycleExceptionWhenSamePackageAdded() {
+          // Arrange, Act & Assert
+          dependencyMap.Add("A", "A");
         }
-      };
 
-      // Act
-      var actualPackage = dependencyMap.Add(packageName, dependencyName);
+        #endregion
 
-      // Assert
-      Assert.AreEqual(expectedPackage, actualPackage);
+      [TestMethod]
+      [Description("Should throw PackageDuplicateException Error package has already been added.")]
+      [ExpectedException(typeof(PackageDuplicateException))]
+      public void TestAddPackageThrowPackageDuplicateException() {
 
-    }
+        // Arrange
+        dependencyMap.Add("A", "B");
 
-    [TestMethod]
-    [Description("Should throw PackageContainsCycleException Error.")]
-    [ExpectedException(typeof(PackageContainsCycleException))]
-    public void TestAddPackageThrowContainsCycleException() {
+        // Act
+        dependencyMap.Add("a"); // Add same package but lowercase
 
-      // Arrange
-      dependencyMap.Add("A", "C");
-      dependencyMap.Add("B", "A");
+      }
 
-      // Act & Assert
-      dependencyMap.Add("C", "B");
-
-    }
+      #endregion
 
     [TestMethod]
-    [Description("Should throw PackageContainsCycleException Error when a package and its dependency are the same.")]
-    [ExpectedException(typeof(PackageContainsCycleException))]
-    public void TestAddPackageThrowContainsCycleExceptionWhenSamePackageAdded() {
-      // Arrange, Act & Assert
-      dependencyMap.Add("A", "A");
-    }
-
-    [TestMethod]
-    [Description("Should throw PackageDuplicateException Error package has already been added.")]
-    [ExpectedException(typeof(PackageDuplicateException))]
-    public void TestAddPackageThrowPackageDuplicateException() {
-
-      // Arrange
-      dependencyMap.Add("A", "B");
-
-      // Act
-      dependencyMap.Add("a"); // Add same package but lowercase
-
-    }
-
-    [TestMethod]
-    [Description("Should return a dependency map.")]
+    [Description("Should return a dependency map. Scenario from exercise.")]
     public void TestGetMap() {
 
       // Arrange
@@ -137,6 +162,24 @@ namespace PackageInstallerExercise.Test {
       dependencyMap.Add("D", "A");
       dependencyMap.Add("E", "B");
       dependencyMap.Add("F");
+
+      // Act
+      var actual = dependencyMap.GetMap();
+
+      // Assert
+      CollectionAssert.AreEqual(expected, actual);
+
+    }
+
+    [TestMethod]
+    [Description("Should return a dependency map. Scenario 2.")]
+    public void TestGetMap2() {
+
+      // Arrange
+      var expected = new string[] { "C", "A", "B" };
+      dependencyMap.Add("A", "C");
+      dependencyMap.Add("B", "C");
+      dependencyMap.Add("C");
 
       // Act
       var actual = dependencyMap.GetMap();
