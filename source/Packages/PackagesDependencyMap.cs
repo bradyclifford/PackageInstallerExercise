@@ -87,7 +87,7 @@ namespace PackageInstallerExercise.Packages {
         return true;
       }
 
-      if (package.Name == originalPackangeName) {
+      if (package.Dependency.Name == originalPackangeName) {
         return true;
       }
 
