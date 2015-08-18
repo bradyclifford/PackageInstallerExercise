@@ -38,11 +38,7 @@ namespace PackageInstallerExercise.Packages {
       }
 
       // See if package already exists in the list
-      var existingPackage = this.Packages.Find(
-        p => p.Name.Equals(
-          packageName,
-          StringComparison.CurrentCultureIgnoreCase
-        ));
+      var existingPackage = FindPackage(packageName);
 
       // If package already has a dependency, throw duplicate error
       if (existingPackage != null && existingPackage.Dependency != null) {
@@ -51,22 +47,7 @@ namespace PackageInstallerExercise.Packages {
 
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrWhiteSpace(dependencyName)) {
-
-        // See if dependency already exists in the list
-        dependency = this.Packages.Find(p => p.Name == dependencyName);
-
-        // If dependency package doesn't already exist, create a new instance
-        if (dependency == null) {
-          
-          dependency = new P() {
-            Name = dependencyName
-          };
-
-          // Add to package list so can be found again
-          this.Packages.Add(dependency);
-
-        }
-
+        dependency = CreatePackageDependency(dependencyName);
       }
 
       IPackage package;
@@ -95,6 +76,35 @@ namespace PackageInstallerExercise.Packages {
 
       return this.Packages.Last();
 
+    }
+
+    private IPackage CreatePackageDependency(string dependencyName) {
+
+      // See if dependency already exists in the list
+      var dependency = this.Packages.Find(p => p.Name == dependencyName);
+
+      // If dependency package doesn't already exist, create a new instance
+      if (dependency == null) {
+          
+        dependency = new P() {
+          Name = dependencyName
+        };
+
+        // Add to package list so can be found again
+        this.Packages.Add(dependency);
+
+      }
+
+      return dependency;
+
+    }
+
+    private IPackage FindPackage(string packageName) {
+      return this.Packages.Find(
+        p => p.Name.Equals(
+          packageName,
+          StringComparison.CurrentCultureIgnoreCase
+        ));
     }
 
     /// <summary>
