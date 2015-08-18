@@ -48,7 +48,7 @@ namespace PackageInstallerExercise.Packages {
         string packageName = packageAndDependency[0].Trim();
         string dependencyName = packageAndDependency[1].Trim();
 
-        this._packageDependencyMap.Add(packageName, dependencyName);
+        this._packageDependencyMap.AddPackage(packageName, dependencyName);
 
       }
 

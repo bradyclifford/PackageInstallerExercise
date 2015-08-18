@@ -29,7 +29,7 @@ namespace PackageInstallerExercise.Packages {
     /// <param name="packageName">Package Name</param>
     /// <param name="dependencyName">Dependency Name</param>
     /// <remarks>When dependency already exists in map, will link instead of create</remarks>
-    public IPackage Add(string packageName, string dependencyName = null) {
+    public IPackage AddPackage(string packageName, string dependencyName = null) {
 
       IPackage dependency = default(P);
 
@@ -84,7 +84,7 @@ namespace PackageInstallerExercise.Packages {
       package.Dependency = dependency;
 
       // Determine if it contains a cycle
-      if (isCycle(package, package.Name)) {
+      if (PackageHasCycle(package, package.Name)) {
         throw new PackageContainsCycleException(package);
       }
 
@@ -141,7 +141,7 @@ namespace PackageInstallerExercise.Packages {
     /// <param name="package">Package to check</param>
     /// <param name="originalPackageName">Original Package Name</param>
     /// <returns></returns>
-    private bool isCycle(IPackage package, string originalPackageName) {
+    private bool PackageHasCycle(IPackage package, string originalPackageName) {
 
       // When dependency is null, can't be a cycle
       if (package.Dependency == null) {
@@ -159,7 +159,7 @@ namespace PackageInstallerExercise.Packages {
       }
 
       // Recurse through the dependency tree
-      return isCycle(package.Dependency, originalPackageName);
+      return PackageHasCycle(package.Dependency, originalPackageName);
 
     }
 

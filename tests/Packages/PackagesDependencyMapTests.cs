@@ -36,7 +36,7 @@ namespace PackageInstallerExercise.Test {
         };
 
         // Act
-        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+        var actualPackage = dependencyMap.AddPackage(packageName, dependencyName);
 
         // Assert
         Assert.AreEqual(expectedPackage, actualPackage);
@@ -58,10 +58,10 @@ namespace PackageInstallerExercise.Test {
           }
         };
 
-        dependencyMap.Add(dependencyName); // Add package dependency first
+        dependencyMap.AddPackage(dependencyName); // Add package dependency first
 
         // Act
-        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+        var actualPackage = dependencyMap.AddPackage(packageName, dependencyName);
 
         // Assert
         Assert.AreEqual(expectedPackage, actualPackage);
@@ -84,7 +84,7 @@ namespace PackageInstallerExercise.Test {
         };
 
         // Act
-        var actualPackage = dependencyMap.Add(packageName, dependencyName);
+        var actualPackage = dependencyMap.AddPackage(packageName, dependencyName);
 
         // Assert
         Assert.AreEqual(expectedPackage, actualPackage);
@@ -99,11 +99,11 @@ namespace PackageInstallerExercise.Test {
         public void TestAddPackageThrowContainsCycleException() {
 
           // Arrange
-          dependencyMap.Add("A", "C");
-          dependencyMap.Add("B", "A");
+          dependencyMap.AddPackage("A", "C");
+          dependencyMap.AddPackage("B", "A");
 
           // Act & Assert
-          dependencyMap.Add("C", "B");
+          dependencyMap.AddPackage("C", "B");
 
         }
 
@@ -113,14 +113,14 @@ namespace PackageInstallerExercise.Test {
         public void TestAddPackageThrowContainsCycleException2() {
 
           // Arrange
-          dependencyMap.Add("A");
-          dependencyMap.Add("B", "C");
-          dependencyMap.Add("C", "F");
-          dependencyMap.Add("D", "A");
-          dependencyMap.Add("E");
+          dependencyMap.AddPackage("A");
+          dependencyMap.AddPackage("B", "C");
+          dependencyMap.AddPackage("C", "F");
+          dependencyMap.AddPackage("D", "A");
+          dependencyMap.AddPackage("E");
 
           // Act & Assert
-          dependencyMap.Add("F", "B");
+          dependencyMap.AddPackage("F", "B");
 
         }
 
@@ -129,7 +129,7 @@ namespace PackageInstallerExercise.Test {
         [ExpectedException(typeof(PackageContainsCycleException))]
         public void TestAddPackageThrowContainsCycleExceptionWhenSamePackageAdded() {
           // Arrange, Act & Assert
-          dependencyMap.Add("A", "A");
+          dependencyMap.AddPackage("A", "A");
         }
 
         #endregion
@@ -140,10 +140,10 @@ namespace PackageInstallerExercise.Test {
       public void TestAddPackageThrowPackageDuplicateException() {
 
         // Arrange
-        dependencyMap.Add("A", "B");
+        dependencyMap.AddPackage("A", "B");
 
         // Act
-        dependencyMap.Add("a"); // Add same package but lowercase
+        dependencyMap.AddPackage("a"); // Add same package but lowercase
 
       }
 
@@ -156,12 +156,12 @@ namespace PackageInstallerExercise.Test {
       // Arrange
       var expected = new string[] { "A", "F", "C", "B", "D", "E" };
       
-      dependencyMap.Add("A");
-      dependencyMap.Add("B", "C");
-      dependencyMap.Add("C", "F");
-      dependencyMap.Add("D", "A");
-      dependencyMap.Add("E", "B");
-      dependencyMap.Add("F");
+      dependencyMap.AddPackage("A");
+      dependencyMap.AddPackage("B", "C");
+      dependencyMap.AddPackage("C", "F");
+      dependencyMap.AddPackage("D", "A");
+      dependencyMap.AddPackage("E", "B");
+      dependencyMap.AddPackage("F");
 
       // Act
       var actual = dependencyMap.GetMap();
@@ -177,9 +177,9 @@ namespace PackageInstallerExercise.Test {
 
       // Arrange
       var expected = new string[] { "C", "A", "B" };
-      dependencyMap.Add("A", "C");
-      dependencyMap.Add("B", "C");
-      dependencyMap.Add("C");
+      dependencyMap.AddPackage("A", "C");
+      dependencyMap.AddPackage("B", "C");
+      dependencyMap.AddPackage("C");
 
       // Act
       var actual = dependencyMap.GetMap();
