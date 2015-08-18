@@ -78,7 +78,7 @@ namespace PackageInstallerExercise {
       }
       catch (Exception e) {
         result = ConsoleReturnTypes.Rejected;
-        HandleError(result, e.ToString());
+        HandleError(result, e.Message);
       }
 
       return result;

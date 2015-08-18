@@ -17,10 +17,12 @@ namespace PackageInstallerExercise.Packages.Exceptions {
       this.Package = package;
     }
 
-    public override string ToString() {
-      return string.Format(
+    public override string Message {
+      get {
+        return string.Format(
         "{0} [{1}]", this.Name, this.Package.ToString()
         );
+      }
     }
 
   }

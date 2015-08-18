@@ -31,8 +31,6 @@ namespace PackageInstallerExercise.Packages {
     /// <remarks>When dependency already exists in map, will link instead of create</remarks>
     public IPackage AddPackage(string packageName, string dependencyName = null) {
 
-      IPackage dependency = default(P);
-
       // See if package already exists in the list
       var existingPackage = FindPackage(packageName);
 
@@ -41,23 +39,16 @@ namespace PackageInstallerExercise.Packages {
         throw new PackageDuplicateException(existingPackage);
       }
 
+      var newPackages = new List<IPackage>();
+
+      IPackage dependency = default(P);
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrWhiteSpace(dependencyName)) {
-        dependency = CreatePackage(dependencyName);
+        dependency = CreateOrFindPackage(dependencyName, newPackages);
       }
 
-      IPackage package;
-
-      // Create new package when not found
-      if (existingPackage == null) {
-        package = new P() {
-          Name = packageName
-        };
-      }
-      else { // Use existing package
-        package = existingPackage;
-      }
-
+      // Create new Package or get it from the package list adding its dependency
+      var package = CreateOrFindPackage(packageName, newPackages);
       package.Dependency = dependency;
 
       // Determine if it contains a cycle
@@ -65,29 +56,38 @@ namespace PackageInstallerExercise.Packages {
         throw new PackageContainsCycleException(package);
       }
 
-      // Add new package to the list of packages
-      if (existingPackage == null) {
-        this.Packages.Add(package);
-      }
-
+      // We have gotten this far, so add the newly created pages to the package list
+      this.Packages.AddRange(newPackages);
       return this.Packages.Last();
 
     }
 
-    private IPackage CreatePackage(string packageName) {
+    /// <summary>
+    /// Create or Find the new Package and add to package list
+    /// </summary>
+    /// <param name="packageName">Name of the Package to create</param>
+    /// <param name="packages">Temporary package list to add the package if created</param>
+    /// <returns>Created of Found Package</returns>
+    private IPackage CreateOrFindPackage(string packageName, IList packages = null) {
 
-      // See if dependency already exists in the list
+      // See if package already exists in the list
       var package = FindPackage(packageName);
 
-      // If dependency package doesn't already exist, create a new instance
+      // If package doesn't already exist, create a new instance
       if (package == null) {
 
         package = new P() {
           Name = packageName
         };
 
-        // Add to package list so can be found again
-        this.Packages.Add(package);
+        // If no packages passed, default to that of the class
+        if (packages == null) {
+          packages = this.Packages;
+        }
+
+        // Add to package list
+        // Could be a temporarily list passed in.
+        packages.Add(package);
         
       }
 
@@ -95,10 +95,15 @@ namespace PackageInstallerExercise.Packages {
 
     }
 
+    /// <summary>
+    /// Finds the package name within the package list
+    /// </summary>
+    /// <param name="packageName">Package Name to find</param>
+    /// <returns>Package if found, null if otherwise</returns>
     private IPackage FindPackage(string packageName) {
 
       if (string.IsNullOrWhiteSpace(packageName)) {
-        throw new ArgumentException("Package name cannot be empty.");
+        throw new ArgumentException("Package name cannot be empty");
       }
 
       return this.Packages.Find(
@@ -106,6 +111,7 @@ namespace PackageInstallerExercise.Packages {
           packageName,
           StringComparison.CurrentCultureIgnoreCase
         ));
+
     }
 
     /// <summary>
