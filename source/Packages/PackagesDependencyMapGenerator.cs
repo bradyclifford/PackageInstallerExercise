@@ -30,6 +30,10 @@ namespace PackageInstallerExercise.Packages {
       return this._packageDependencyMap.GetMap();
     }
 
+    /// <summary>
+    /// Fills dependency map with the definitions provided
+    /// </summary>
+    /// <param name="definitions"></param>
     private void FillMap(string[] definitions) {
 
       foreach (string definition in definitions) {

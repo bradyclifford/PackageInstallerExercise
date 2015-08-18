@@ -8,7 +8,7 @@
     NoArguments = 1,
     TooManyArguments = 2,
     ArgumentsIncorrectFormat = 3,
-    UnknownFailure = 4
+    Rejected = 4
   }
 
 }

@@ -1,4 +1,5 @@
 ﻿using PackageInstallerExercise.Packages.Interfaces;
+
 namespace PackageInstallerExercise.Interfaces {
 
   /// <summary>

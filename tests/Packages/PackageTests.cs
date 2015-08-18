@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PackageInstallerExercise.Packages;
-using System;
 
 namespace PackageInstallerExercise.Test.Packages {
 

@@ -4,7 +4,15 @@ Package Installer Exercise
 Gives the installer a list of packages with dependencies. 
 The installer determines in which order the packages need to be installed.
 
-This exercise is to write the code that will determine the order of install.
+ * Auther: Brady Clifford 
+ * Date: August 15, 2015
+ 
+Usage:
+The console application accepts one command line argument. This argument will contain all the packages and their dependencies. 
+Each package and its dependency is seperated by a comma wrapped by double quotes.
+
+Usage Example:
+C:\PackageInstallerExercise "KittenService: CamelCaser, CamelCaser:"
 
 */
 
@@ -16,7 +24,7 @@ using System;
 namespace PackageInstallerExercise {
 
   /// <summary>
-  /// Program to execute at run
+  /// Program to execute at runtime
   /// </summary>
   public class Program {
 
@@ -26,7 +34,7 @@ namespace PackageInstallerExercise {
     private string[] _definitions;
 
     public Program(IOutputWriter writer, IDependencyMapGenerator generator) {
-      // Lazy dependency injection
+      // Allow for Lazy dependency injection
       _writer = writer;
       _generator = generator;
     }
@@ -69,7 +77,7 @@ namespace PackageInstallerExercise {
 
       }
       catch (Exception e) {
-        result = ConsoleReturnTypes.UnknownFailure;
+        result = ConsoleReturnTypes.Rejected;
         HandleError(result, e.ToString());
       }
 
@@ -98,7 +106,7 @@ namespace PackageInstallerExercise {
 
         default:
           string line = string.Format(
-            "An error occurred: {0}. \nDetails: [{1}].",
+            "An error occurred: {0}. \nDetails: {1}.",
             Enum.GetName(typeof(ConsoleReturnTypes), failureType),
             details
           );

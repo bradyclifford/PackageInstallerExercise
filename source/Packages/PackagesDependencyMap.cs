@@ -4,9 +4,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using PackageInstallerExercise.Packages.Exceptions;
-using System.Text;
 
 namespace PackageInstallerExercise.Packages {
 
@@ -15,8 +13,6 @@ namespace PackageInstallerExercise.Packages {
   /// </summary>
   public class PackagesDependencyMap<P> : IDependencyMap
     where P : IPackage, new() {
-
-    //private _packageType;
 
     public List<IPackage> Packages { get; private set; }
 

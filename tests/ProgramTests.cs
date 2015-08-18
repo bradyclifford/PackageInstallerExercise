@@ -170,7 +170,7 @@ namespace PackageInstallerExercise.Test {
       var result = program.Run(input);
 
       // Assert
-      Assert.AreEqual(ConsoleReturnTypes.UnknownFailure, result);
+      Assert.AreEqual(ConsoleReturnTypes.Rejected, result);
       Assert.IsTrue(writer.HasBeenCalled());
 
     }

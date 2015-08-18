@@ -10,6 +10,11 @@ namespace PackageInstallerExercise.Packages {
     public string Name { get; set; }
     public IPackage Dependency { get; set; }
 
+    /// <summary>
+    /// Determines if the package has the same name
+    /// </summary>
+    /// <param name="obj">Package to compare against</param>
+    /// <returns></returns>
     public override bool Equals(object obj) {
 
       // If parameter is null return false.
@@ -24,7 +29,6 @@ namespace PackageInstallerExercise.Packages {
       }
 
       // Return true if the fields match:
-      // TODO: do we need to match of the dependency name as well?
       return Name == p.Name;
 
     }
