@@ -33,10 +33,6 @@ namespace PackageInstallerExercise.Packages {
 
       IPackage dependency = default(P);
 
-      if (string.IsNullOrWhiteSpace(packageName)) {
-        throw new ArgumentException("Package name cannot be empty.");
-      }
-
       // See if package already exists in the list
       var existingPackage = FindPackage(packageName);
 
@@ -47,7 +43,7 @@ namespace PackageInstallerExercise.Packages {
 
       // When dependencyName is passed, find it or create it
       if (!string.IsNullOrWhiteSpace(dependencyName)) {
-        dependency = CreatePackageDependency(dependencyName);
+        dependency = CreatePackage(dependencyName);
       }
 
       IPackage package;
@@ -78,28 +74,33 @@ namespace PackageInstallerExercise.Packages {
 
     }
 
-    private IPackage CreatePackageDependency(string dependencyName) {
+    private IPackage CreatePackage(string packageName) {
 
       // See if dependency already exists in the list
-      var dependency = this.Packages.Find(p => p.Name == dependencyName);
+      var package = FindPackage(packageName);
 
       // If dependency package doesn't already exist, create a new instance
-      if (dependency == null) {
-          
-        dependency = new P() {
-          Name = dependencyName
+      if (package == null) {
+
+        package = new P() {
+          Name = packageName
         };
 
         // Add to package list so can be found again
-        this.Packages.Add(dependency);
-
+        this.Packages.Add(package);
+        
       }
 
-      return dependency;
+      return package;
 
     }
 
     private IPackage FindPackage(string packageName) {
+
+      if (string.IsNullOrWhiteSpace(packageName)) {
+        throw new ArgumentException("Package name cannot be empty.");
+      }
+
       return this.Packages.Find(
         p => p.Name.Equals(
           packageName,
